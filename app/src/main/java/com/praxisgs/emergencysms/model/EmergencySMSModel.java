@@ -21,6 +21,8 @@ public class EmergencySMSModel {
     @Expose
     private PassCodeEntity passCodeEntity;
 
+    private Contact contact;
+
     public static void initialise(Context context) {
         if (instance == null) {
             instance = new EmergencySMSModel(context);
@@ -76,4 +78,11 @@ public class EmergencySMSModel {
         this.passCodeEntity = passCodeEntity;
     }
 
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
 }

@@ -7,9 +7,14 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 
 import com.praxisgs.emergencysms.R;
+import com.praxisgs.emergencysms.adapters.ContactsAdapter;
 import com.praxisgs.emergencysms.base.BaseFragment;
+import com.praxisgs.emergencysms.model.Contact;
+
+import java.util.List;
 
 
 /**
@@ -17,6 +22,7 @@ import com.praxisgs.emergencysms.base.BaseFragment;
  */
 public class SettingsFragment extends BaseFragment<SettingsPresenter> implements SettingsPresenter.ViewInterface {
     public static final String TAG = SettingsFragment.class.getName();
+    private AutoCompleteTextView mContactEditText;
 
     @Override
     protected SettingsPresenter instantiatePresenter() {
@@ -32,8 +38,18 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
     }
 
     private void bindView(View view) {
-
+        List<Contact> contacts = mPresenter.retrieveContacts();
+        mContactEditText = (AutoCompleteTextView)view.findViewById(R.id.contect_editText);
+        mContactEditText.setEnabled(false);
+        mContactEditText.setAdapter(new ContactsAdapter(getAppContext(),contacts));
     }
 
 
+    @Override
+    public void contactsLoaded() {
+        if(!mContactEditText.isEnabled()){
+            mContactEditText.setEnabled(true);
+            mContactEditText.setHint(R.string.type_in_the_contact_name);
+        }
+    }
 }
