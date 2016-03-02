@@ -23,6 +23,7 @@ public class PasscodeFragment extends BaseFragment<PasscodePresenter> implements
     public static final String TAG = PasscodeFragment.class.getName();
     private LinearLayout enterPassCodeLayout;
     private LinearLayout createPassCodeLayout;
+    private EditText mEnterPassCode;
 
 
     @Override
@@ -44,15 +45,15 @@ public class PasscodeFragment extends BaseFragment<PasscodePresenter> implements
         showRequiredLayout();
 
 
-        final EditText enterPassCode = (EditText) view.findViewById(R.id.passcode_enterPassCode);
-        enterPassCode.setOnKeyListener(new View.OnKeyListener() {
+        mEnterPassCode = (EditText) view.findViewById(R.id.passcode_enterPassCode);
+        mEnterPassCode.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     switch (keyCode) {
                         case KeyEvent.KEYCODE_ENTER:
-                            if (!enterPassCode.getText().toString().isEmpty()) {
-                                mPresenter.passCodeEnterOKBtnClicked(enterPassCode.getText().toString());
+                            if (!mEnterPassCode.getText().toString().isEmpty()) {
+                                mPresenter.passCodeEnterOKBtnClicked(mEnterPassCode.getText().toString());
                             }
                             return true;
                         default:
@@ -66,8 +67,8 @@ public class PasscodeFragment extends BaseFragment<PasscodePresenter> implements
         enterPassCodeOKBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!enterPassCode.getText().toString().isEmpty())
-                    mPresenter.passCodeEnterOKBtnClicked(enterPassCode.getText().toString());
+                if (!mEnterPassCode.getText().toString().isEmpty())
+                    mPresenter.passCodeEnterOKBtnClicked(mEnterPassCode.getText().toString());
             }
         });
 
@@ -116,6 +117,11 @@ public class PasscodeFragment extends BaseFragment<PasscodePresenter> implements
     @Override
     public void passCodeCreate() {
         showRequiredLayout();
+    }
+
+    @Override
+    public void passcodeMatchSuccessfull() {
+        mEnterPassCode.setText("");
     }
 
 }

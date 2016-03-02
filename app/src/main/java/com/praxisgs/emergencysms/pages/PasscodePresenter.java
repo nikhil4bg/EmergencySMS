@@ -39,6 +39,7 @@ public class PasscodePresenter implements BasePresenter {
         if(passCodeEntity !=null && passCodeEntity.getPassCode() !=null && !passCodeEntity.getPassCode().isEmpty()){
             String storedPasscode = passCodeEntity.getPassCode();
             if(passcode.equals(storedPasscode)){
+                mView.passcodeMatchSuccessfull();
                 EmergencySMSEventBus.post(new AppNavigationEvents.EventShowSettingsPage());
             }else{
                 //TODO Show error
@@ -64,6 +65,8 @@ public class PasscodePresenter implements BasePresenter {
         Context getAppContext();
 
         void passCodeCreate();
+
+        void passcodeMatchSuccessfull();
     }
 
     @Override
