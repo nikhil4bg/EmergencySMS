@@ -10,7 +10,7 @@ import com.praxisgs.emergencysms.base.BasePresenter;
 import com.praxisgs.emergencysms.eventbus.AppNavigationEvents;
 import com.praxisgs.emergencysms.eventbus.EmergencySMSEventBus;
 import com.praxisgs.emergencysms.model.EmergencySMSModel;
-import com.praxisgs.emergencysms.model.PassCodeEntity;
+import com.praxisgs.emergencysms.model.PassCodeModel;
 
 
 /**
@@ -28,16 +28,16 @@ public class PasscodePresenter implements BasePresenter {
     }
 
     public boolean isPassCodeCreated() {
-        PassCodeEntity passCodeEntity = EmergencySMSModel.getInstance().getPassCodeEntity();
-        if(passCodeEntity !=null && passCodeEntity.getPassCode() !=null && !passCodeEntity.getPassCode().isEmpty())
+        PassCodeModel passCodeModel = EmergencySMSModel.getInstance().getPassCodeModel();
+        if(passCodeModel !=null && passCodeModel.getPassCode() !=null && !passCodeModel.getPassCode().isEmpty())
             return true;
         return false;
     }
 
     public void passCodeEnterOKBtnClicked(String passcode) {
-        PassCodeEntity passCodeEntity = EmergencySMSModel.getInstance().getPassCodeEntity();
-        if(passCodeEntity !=null && passCodeEntity.getPassCode() !=null && !passCodeEntity.getPassCode().isEmpty()){
-            String storedPasscode = passCodeEntity.getPassCode();
+        PassCodeModel passCodeModel = EmergencySMSModel.getInstance().getPassCodeModel();
+        if(passCodeModel !=null && passCodeModel.getPassCode() !=null && !passCodeModel.getPassCode().isEmpty()){
+            String storedPasscode = passCodeModel.getPassCode();
             if(passcode.equals(storedPasscode)){
                 mView.passcodeMatchSuccessfull();
                 EmergencySMSEventBus.post(new AppNavigationEvents.EventShowSettingsPage());
@@ -50,9 +50,9 @@ public class PasscodePresenter implements BasePresenter {
 
     public void createPassCodeBtnClicked(String createPassCode, String recreatePassCode) {
         if(createPassCode.equals(recreatePassCode)){
-            PassCodeEntity passCodeEntity = new PassCodeEntity();
-            passCodeEntity.setPassCode(createPassCode);
-            EmergencySMSModel.getInstance().setPassCodeEntity(passCodeEntity);
+            PassCodeModel passCodeModel = new PassCodeModel();
+            passCodeModel.setPassCode(createPassCode);
+            EmergencySMSModel.getInstance().setPassCodeModel(passCodeModel);
             EmergencySMSModel.getInstance().save();
             mView.passCodeCreate();
         }else{

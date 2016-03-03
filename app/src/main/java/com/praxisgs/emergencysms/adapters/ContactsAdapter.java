@@ -11,7 +11,8 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.praxisgs.emergencysms.R;
-import com.praxisgs.emergencysms.model.Contact;
+import com.praxisgs.emergencysms.model.ContactModel;
+import com.praxisgs.emergencysms.model.EmergencySMSModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +23,9 @@ import java.util.List;
 public class ContactsAdapter extends BaseAdapter implements Filterable {
 
     private final Context mContext;
-    private final List<Contact> mListItems;
-    private List<Contact> mSuggestions = new ArrayList<>();
-    private List<Contact> mResultList = new ArrayList<>();
+    private final List<ContactModel> mListItems;
+    private List<ContactModel> mSuggestions = new ArrayList<>();
+    private List<ContactModel> mResultList = new ArrayList<>();
 
 
     /**
@@ -33,7 +34,7 @@ public class ContactsAdapter extends BaseAdapter implements Filterable {
      * @param context The current context.
      * @param items   The objects to represent in the ListView.
      */
-    public ContactsAdapter(Context context, List<Contact> items) {
+    public ContactsAdapter(Context context, List<ContactModel> items) {
         this.mContext = context;
         this.mListItems = items;
     }
@@ -57,7 +58,7 @@ public class ContactsAdapter extends BaseAdapter implements Filterable {
      * @return The data at the specified position.
      */
     @Override
-    public Contact getItem(int position) {
+    public ContactModel getItem(int position) {
         return mResultList.get(position);
     }
 
@@ -104,7 +105,7 @@ public class ContactsAdapter extends BaseAdapter implements Filterable {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        Contact listItem = getItem(position);
+        ContactModel listItem = getItem(position);
         viewHolder.displayName.setText(listItem.getDisplayName());
         viewHolder.mobileNumber.setText(listItem.getMobileNumber());
 
@@ -132,9 +133,12 @@ public class ContactsAdapter extends BaseAdapter implements Filterable {
 
     class ContactFilter extends Filter {
 
+
+
         @Override
         public CharSequence convertResultToString(Object resultValue) {
-            String str = ((Contact) resultValue).getDisplayName();
+            String str = ((ContactModel) resultValue).getDisplayName();
+            EmergencySMSModel.getInstance().setSelectedContact(((ContactModel) resultValue));
             return str;
         }
 
@@ -143,7 +147,7 @@ public class ContactsAdapter extends BaseAdapter implements Filterable {
 
             if (constraint != null) {
                 mSuggestions.clear();
-                for (Contact people : mListItems) {
+                for (ContactModel people : mListItems) {
                     if (people.getDisplayName().toLowerCase().contains(constraint.toString().toLowerCase())) {
                         mSuggestions.add(people);
                     }
@@ -159,13 +163,15 @@ public class ContactsAdapter extends BaseAdapter implements Filterable {
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            List<Contact> filterList = (ArrayList<Contact>) results.values;
+            List<ContactModel> filterList = (ArrayList<ContactModel>) results.values;
             if (results != null && results.count > 0) {
                 mResultList.clear();
-                for (Contact people : filterList) {
+                for (ContactModel people : filterList) {
                     mResultList.add(people);
                     notifyDataSetChanged();
                 }
+            }else if(results != null && results.count == 0){
+                EmergencySMSModel.getInstance().setSelectedContact(null);
             }
         }
     }

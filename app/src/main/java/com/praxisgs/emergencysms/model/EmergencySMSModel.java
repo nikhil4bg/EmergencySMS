@@ -19,9 +19,12 @@ public class EmergencySMSModel {
     private final Context context;
 
     @Expose
-    private PassCodeEntity passCodeEntity;
+    private PassCodeModel passCodeModel;
 
-    private Contact contact;
+    @Expose
+    private SettingModel settingModel;
+
+    private ContactModel selectedContact;
 
     public static void initialise(Context context) {
         if (instance == null) {
@@ -54,7 +57,8 @@ public class EmergencySMSModel {
     private void setData(String modelStr) {
         if (modelStr != null) {
             EmergencySMSModel model = gson.fromJson(modelStr, EmergencySMSModel.class);
-            setPassCodeEntity(model.getPassCodeEntity());
+            setPassCodeModel(model.getPassCodeModel());
+            setSettingModel(model.getSettingModel());
         }
     }
 
@@ -65,24 +69,32 @@ public class EmergencySMSModel {
 
     public void loadNewData(String modelStr) {
         if (modelStr != null) {
-            setPassCodeEntity(gson.fromJson(modelStr, PassCodeEntity.class));
+            setPassCodeModel(gson.fromJson(modelStr, PassCodeModel.class));
         }
     }
 
 
-    public PassCodeEntity getPassCodeEntity() {
-        return passCodeEntity;
+    public PassCodeModel getPassCodeModel() {
+        return passCodeModel;
     }
 
-    public void setPassCodeEntity(PassCodeEntity passCodeEntity) {
-        this.passCodeEntity = passCodeEntity;
+    public void setPassCodeModel(PassCodeModel passCodeModel) {
+        this.passCodeModel = passCodeModel;
     }
 
-    public Contact getContact() {
-        return contact;
+    public SettingModel getSettingModel() {
+        return settingModel;
     }
 
-    public void setContact(Contact contact) {
-        this.contact = contact;
+    public void setSettingModel(SettingModel settingModel) {
+        this.settingModel = settingModel;
+    }
+
+    public void setSelectedContact(ContactModel selectedContact) {
+        this.selectedContact = selectedContact;
+    }
+
+    public ContactModel getSelectedContact() {
+        return selectedContact;
     }
 }

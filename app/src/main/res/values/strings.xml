@@ -7,5 +7,6 @@
     <string name="start_using_this_service">Start Using this Service</string>
     <string name="type_in_the_contact_name">Type in the contact name</string>
     <string name="loading">Loading Contacts...</string>
-    <string name="type_sms_to_send">Type SMS to send</string>
+    <string name="type_message_to_send">Type message to send</string>
+    <string name="save">Save</string>
 </resources>

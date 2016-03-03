@@ -1,17 +1,19 @@
 package com.praxisgs.emergencysms.pages;
 
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.praxisgs.emergencysms.base.BasePresenter;
-import com.praxisgs.emergencysms.model.Contact;
+import com.praxisgs.emergencysms.model.ContactModel;
+import com.praxisgs.emergencysms.model.EmergencySMSModel;
+import com.praxisgs.emergencysms.model.SettingModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,12 @@ import java.util.List;
  */
 public class SettingsPresenter implements BasePresenter {
     private ViewInterface mView;
-    ArrayList<Contact> mContactList = new ArrayList<>();
+    ArrayList<ContactModel> mContactModelList = new ArrayList<>();
+    String[] projection = {ContactsContract.Contacts._ID, Build.VERSION.SDK_INT
+            >= Build.VERSION_CODES.HONEYCOMB ?
+            ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
+            ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.Contacts.HAS_PHONE_NUMBER};
+    String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "=1";
 
     private SettingsPresenter(ViewInterface viewInterface) {
         this.mView = viewInterface;
@@ -31,6 +38,24 @@ public class SettingsPresenter implements BasePresenter {
         return new SettingsPresenter(viewInterface);
     }
 
+    public SettingModel getSettings() {
+        return EmergencySMSModel.getInstance().getSettingModel();
+    }
+
+    public void saveSettings(boolean locationEnabled, boolean serviceEnabled, String message) {
+        SettingModel settingModel = new SettingModel();
+        settingModel.setLocationIncluded(locationEnabled);
+        settingModel.setServiceEnabled(serviceEnabled);
+        settingModel.setMessage(message);
+
+        ArrayList<ContactModel> contacts = new ArrayList<ContactModel>();
+        if (EmergencySMSModel.getInstance().getSelectedContact() != null) {
+            contacts.add(EmergencySMSModel.getInstance().getSelectedContact());
+        }
+        settingModel.setContactModels(contacts);
+
+        EmergencySMSModel.getInstance().setSettingModel(settingModel);
+    }
 
 
     public interface ViewInterface {
@@ -74,7 +99,8 @@ public class SettingsPresenter implements BasePresenter {
         return mView.getAppContext();
     }
 
-    public List<Contact> retrieveContacts() {
+    public List<ContactModel> retrieveContacts() {
+
 
         new AsyncTask<Void, Void, Void>() {
 
@@ -96,43 +122,61 @@ public class SettingsPresenter implements BasePresenter {
         }.execute();
 
 
-        return mContactList;
+        return mContactModelList;
 
 
     }
 
-    private List<Contact> getContacts() {
+
+    private List<ContactModel> getContacts() {
 
 
-        String[] projection = {ContactsContract.Contacts._ID, ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.Contacts.HAS_PHONE_NUMBER};
+        String[] projection = {ContactsContract.Contacts._ID, Build.VERSION.SDK_INT
+                >= Build.VERSION_CODES.HONEYCOMB ?
+                ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
+                ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.Contacts.HAS_PHONE_NUMBER};
         String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "=1";
 
         ContentResolver contentResolver = getAppContext().getContentResolver();
         Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, projection, selection, null, null);
         if (cursor.getCount() > 0) {
-            String displayName, mobileNumber;
+            String displayName, mobileNumber, contactId;
             while (cursor.moveToNext()) {
-                String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-                displayName = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+                displayName = cursor.getString(cursor.getColumnIndex(Build.VERSION.SDK_INT
+                        >= Build.VERSION_CODES.HONEYCOMB ?
+                        ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
+                        ContactsContract.Contacts.DISPLAY_NAME));
+
+
                 Cursor phones = getAppContext().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
-                while (phones.moveToNext()) {
-                    int phoneType = phones.getInt(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE));
-                    if (phoneType == ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE) {
-                        Contact tempContact = new Contact();
-                        mobileNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA));
-                        mobileNumber = mobileNumber.replaceAll("\\s", "");
-                        tempContact.setDisplayName(displayName);
-                        tempContact.setMobileNumber(mobileNumber);
-                        mContactList.add(tempContact);
-                        break;
+                if (phones != null) {
+                    while (phones.moveToNext()) {
+                        int phoneType = phones.getInt(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE));
+                        if (phoneType == ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE) {
+                            ContactModel tempContactModel = new ContactModel();
+                            mobileNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA));
+                            mobileNumber = mobileNumber.replaceAll("\\s", "");
+                            tempContactModel.setDisplayName(displayName);
+                            tempContactModel.setMobileNumber(mobileNumber);
+                            tempContactModel.setId(contactId);
+                            mContactModelList.add(tempContactModel);
+                            phones.close();
+                            break;
+                        } else {
+                            phones.close();
+                            break;
+                        }
                     }
+                    phones.close();
                 }
             }
+            cursor.close();
         }
+        cursor.close();
 
-        return mContactList;
+        return mContactModelList;
     }
-
 
 
 }

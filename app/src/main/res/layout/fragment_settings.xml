@@ -13,8 +13,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/fab_large_margin"
-        android:hint="@string/loading"
-        android:completionThreshold="1" />
+        android:completionThreshold="1"
+        android:hint="@string/loading" />
 
     <CheckBox
         android:id="@+id/include_location_checkBox"
@@ -36,16 +36,37 @@
         android:buttonTint="@android:color/darker_gray"
         android:text="@string/start_using_this_service" />
 
+    <TextView
+        android:id="@+id/type_sms_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/start_service_checkBox"
+        android:layout_marginTop="@dimen/fab_large_margin"
+        android:text="@string/type_message_to_send"/>
+
+    <Button
+        android:id="@+id/save_settings_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:layout_marginTop="@dimen/fab_small_margin"
+        android:layout_marginBottom="@dimen/fab_med_margin"
+        android:layout_alignParentBottom="true"/>
+
     <EditText
+        android:id="@+id/enter_message_editText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:inputType="textMultiLine"
-        android:id="@+id/start_service_editText"
-        android:layout_below="@+id/start_service_checkBox"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="@string/type_sms_to_send"
-        android:layout_marginTop="@dimen/fab_large_margin" />
+        android:layout_below="@+id/type_sms_textview"
+        android:layout_above="@+id/save_settings_btn"
+        android:layout_marginTop="@dimen/fab_tiny_margin"
+        android:gravity="start"
+        android:background="#fffafa"
+        android:hint="@string/type_message_to_send"
+        android:inputType="textMultiLine" />
+
 
 
 </RelativeLayout>
