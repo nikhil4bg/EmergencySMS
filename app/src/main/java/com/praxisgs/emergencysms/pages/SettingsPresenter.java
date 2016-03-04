@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.praxisgs.emergencysms.base.BasePresenter;
+import com.praxisgs.emergencysms.eventbus.EmergencySMSEventBus;
+import com.praxisgs.emergencysms.eventbus.ServiceEvents;
 import com.praxisgs.emergencysms.model.ContactModel;
 import com.praxisgs.emergencysms.model.EmergencySMSModel;
 import com.praxisgs.emergencysms.model.SettingModel;
@@ -55,6 +57,12 @@ public class SettingsPresenter implements BasePresenter {
         settingModel.setContactModels(contacts);
 
         EmergencySMSModel.getInstance().setSettingModel(settingModel);
+
+        if(serviceEnabled){
+            EmergencySMSEventBus.post(new ServiceEvents.EventStartEmergencySMSService());
+        }else{
+            EmergencySMSEventBus.post(new ServiceEvents.EventStopEmergencySMSService());
+        }
     }
 
 
