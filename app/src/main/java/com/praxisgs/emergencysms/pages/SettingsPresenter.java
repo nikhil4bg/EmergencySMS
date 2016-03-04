@@ -59,6 +59,7 @@ public class SettingsPresenter implements BasePresenter {
         EmergencySMSModel.getInstance().setSettingModel(settingModel);
 
         if(serviceEnabled){
+            EmergencySMSEventBus.post(new ServiceEvents.EventStopEmergencySMSService());
             EmergencySMSEventBus.post(new ServiceEvents.EventStartEmergencySMSService());
         }else{
             EmergencySMSEventBus.post(new ServiceEvents.EventStopEmergencySMSService());
