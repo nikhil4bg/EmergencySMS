@@ -24,6 +24,7 @@ public class EmergencySMSModel {
     @Expose
     private SettingModel settingModel;
 
+    @Expose
     private ContactModel selectedContact;
 
     public static void initialise(Context context) {
@@ -59,6 +60,7 @@ public class EmergencySMSModel {
             EmergencySMSModel model = gson.fromJson(modelStr, EmergencySMSModel.class);
             setPassCodeModel(model.getPassCodeModel());
             setSettingModel(model.getSettingModel());
+            setSelectedContact(model.getSelectedContact());
         }
     }
 

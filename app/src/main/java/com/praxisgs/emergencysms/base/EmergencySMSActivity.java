@@ -75,7 +75,7 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
      */
     @Override
     public void startEmergencySMSService() {
-        startService(new Intent(getBaseContext(), EmergencySMSService.class));
+        startService(new Intent(this, EmergencySMSService.class));
     }
 
     /**
@@ -83,6 +83,6 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
      */
     @Override
     public void stopEmergencySMSService() {
-        stopService(new Intent(getBaseContext(), EmergencySMSService.class));
+        stopService(new Intent(this, EmergencySMSService.class));
     }
 }

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import com.praxisgs.emergencysms.R;
@@ -62,6 +63,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 //        }
 
         hideKeyboard();
+
+        Log.e(TAG,"@@@@@@@@@@@@@@@ activity: "+ this);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         Fragment newInstance = Fragment.instantiate(this, fragmentTag, bundle);
