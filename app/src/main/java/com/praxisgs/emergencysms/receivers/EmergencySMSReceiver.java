@@ -11,6 +11,8 @@ import com.praxisgs.emergencysms.model.SettingModel;
 public class EmergencySMSReceiver extends BroadcastReceiver {
     private static int mCountPowerButtonClick = 0;
     private final SettingModel mSettings;
+    private long mPreviousTimeStamp;
+    private final int mRequiredInterval = 300;
 
     public EmergencySMSReceiver(SettingModel settings) {
         this.mSettings = settings;
@@ -20,12 +22,10 @@ public class EmergencySMSReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
             Log.e("In on receive", "@@@@@@@@@@@@ In Method:  ACTION_SCREEN_OFF");
-            mCountPowerButtonClick++;
-            sendSMSIfConfigured();
+            powerButtonTriggered(System.currentTimeMillis());
         } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
             Log.e("In on receive", "@@@@@@@@@@@@ In Method:  ACTION_SCREEN_ON");
-            mCountPowerButtonClick++;
-            sendSMSIfConfigured();
+            powerButtonTriggered(System.currentTimeMillis());
 
         } else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
             Log.e("In on receive", "@@@@@@@@@@@@ In Method:  ACTION_USER_PRESENT");
@@ -33,7 +33,18 @@ public class EmergencySMSReceiver extends BroadcastReceiver {
         }
     }
 
-    private void sendSMSIfConfigured() {
+    private void powerButtonTriggered(long currentTimeStamp) {
+        if(mPreviousTimeStamp == 0){
+            mPreviousTimeStamp = currentTimeStamp;
+        }
+        Log.e("In on receive", "@@@@@@@@@@@@ currentTimeStamp - mPreviousTimeStamp = " + (currentTimeStamp - mPreviousTimeStamp));
+        if(currentTimeStamp - mPreviousTimeStamp <= mRequiredInterval){
+            mCountPowerButtonClick++;
+            mPreviousTimeStamp = currentTimeStamp;
+        }else{
+            mPreviousTimeStamp = 0;
+            mCountPowerButtonClick = 0;
+        }
         if (mCountPowerButtonClick > 2) {
             mCountPowerButtonClick = 0;
 
@@ -41,4 +52,5 @@ public class EmergencySMSReceiver extends BroadcastReceiver {
             smsManager.sendTextMessage(mSettings.getContactModels().get(0).getMobileNumber(), null, mSettings.getMessage(), null, null);
         }
     }
+
 }
