@@ -12,7 +12,7 @@ public class EmergencySMSReceiver extends BroadcastReceiver {
     private static int mCountPowerButtonClick = 0;
     private final SettingModel mSettings;
     private long mPreviousTimeStamp;
-    private final int mRequiredInterval = 300;
+    private final int mRequiredInterval = 1000;
 
     public EmergencySMSReceiver(SettingModel settings) {
         this.mSettings = settings;
