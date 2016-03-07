@@ -3,6 +3,8 @@ package com.praxisgs.emergencysms.base;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -16,8 +18,6 @@ import com.praxisgs.emergencysms.R;
 public abstract class BaseActivity extends AppCompatActivity {
 
     final String TAG = BaseActivity.class.getName();
-
-//    private Fragment newInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +58,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void showFragment(String fragmentTag, Bundle bundle, String title, boolean addToBackStack) {
 
-//        if (newInstance != null && newInstance.getTag() != null && newInstance.getTag().equals(fragmentTag)) {
-//            return;
-//        }
-
         hideKeyboard();
 
         Log.e(TAG,"@@@@@@@@@@@@@@@ activity: "+ this);
@@ -75,6 +71,25 @@ public abstract class BaseActivity extends AppCompatActivity {
         ft.commit();
 
         setTitle(title);
+    }
+
+    /**
+     * Show the specified fragment in a dialog popup
+     *
+     * @param fragmentTag    TAG of the fragment to be shown as a dialog
+     * @param fragmentBundle parameters to be passes to fragment in form of bundle
+     * @return dialog fragment displayed
+     */
+    public DialogFragment showDialogFragment(String fragmentTag, Parcelable fragmentBundle) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(fragmentTag, fragmentBundle);
+
+        DialogFragment newInstance = (DialogFragment) DialogFragment.instantiate(
+                getApplicationContext(), fragmentTag, bundle);
+
+        FragmentManager fm = getSupportFragmentManager();
+        newInstance.show(fm, fragmentTag);
+        return newInstance;
     }
 
 }

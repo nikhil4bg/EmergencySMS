@@ -1,42 +1,32 @@
 package com.praxisgs.emergencysms.adapters;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.os.Build;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.praxisgs.emergencysms.R;
 import com.praxisgs.emergencysms.model.ContactModel;
-import com.praxisgs.emergencysms.model.EmergencySMSModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created on 02/03/2016.
  */
-public class ContactsAdapter extends BaseAdapter implements Filterable {
+public class ContactsAdapter extends BaseAdapter {
+
+//        implements Filterable {
 
     private final Context mContext;
-    private final List<ContactModel> mListItems;
-    private List<ContactModel> mSuggestions = new ArrayList<>();
-    private List<ContactModel> mResultList = new ArrayList<>();
+    private final Cursor mCursor;
 
-
-    /**
-     * Constructor
-     *
-     * @param context The current context.
-     * @param items   The objects to represent in the ListView.
-     */
-    public ContactsAdapter(Context context, List<ContactModel> items) {
+    public ContactsAdapter(Context context, Cursor cursor) {
         this.mContext = context;
-        this.mListItems = items;
+        this.mCursor = cursor;
+
     }
 
 
@@ -47,7 +37,7 @@ public class ContactsAdapter extends BaseAdapter implements Filterable {
      */
     @Override
     public int getCount() {
-        return mResultList.size();
+        return mCursor.getCount();
     }
 
     /**
@@ -59,7 +49,7 @@ public class ContactsAdapter extends BaseAdapter implements Filterable {
      */
     @Override
     public ContactModel getItem(int position) {
-        return mResultList.get(position);
+        return null;
     }
 
     /**
@@ -94,6 +84,7 @@ public class ContactsAdapter extends BaseAdapter implements Filterable {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
+        mCursor.moveToPosition(position);
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = View.inflate(mContext, R.layout.contact_list_view_item, null);
@@ -105,74 +96,42 @@ public class ContactsAdapter extends BaseAdapter implements Filterable {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        ContactModel listItem = getItem(position);
-        viewHolder.displayName.setText(listItem.getDisplayName());
-        viewHolder.mobileNumber.setText(listItem.getMobileNumber());
+//        ContactModel listItem = getItem(position);
+        String contactId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts._ID));
+        String displayName = mCursor.getString(mCursor.getColumnIndex(Build.VERSION.SDK_INT
+                >= Build.VERSION_CODES.HONEYCOMB ?
+                ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
+                ContactsContract.Contacts.DISPLAY_NAME));
+        String mobileNumber = "No Mobile number available";
+        viewHolder.displayName.setText(displayName);
+
+        Cursor phones = mContext.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
+        if (phones != null) {
+            while (phones.moveToNext()) {
+                int phoneType = phones.getInt(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE));
+                if (phoneType == ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE) {
+                    mobileNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA));
+                    mobileNumber = mobileNumber.replaceAll("\\s", "");
+                    phones.close();
+                    break;
+                } else {
+                    phones.close();
+                    break;
+                }
+            }
+            phones.close();
+        }
+
+        viewHolder.mobileNumber.setText(mobileNumber);
 
         return convertView;
     }
 
-    /**
-     * <p>Returns a filter that can be used to constrain data with a filtering
-     * pattern.</p>
-     * <p/>
-     * <p>This method is usually implemented by {@link Adapter}
-     * classes.</p>
-     *
-     * @return a filter used to constrain data
-     */
-    @Override
-    public Filter getFilter() {
-        return new ContactFilter();
-    }
 
     class ViewHolder {
         TextView displayName;
         TextView mobileNumber;
     }
 
-    class ContactFilter extends Filter {
 
-
-
-        @Override
-        public CharSequence convertResultToString(Object resultValue) {
-            String str = ((ContactModel) resultValue).getDisplayName();
-            EmergencySMSModel.getInstance().setSelectedContact(((ContactModel) resultValue));
-            return str;
-        }
-
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-
-            if (constraint != null) {
-                mSuggestions.clear();
-                for (ContactModel people : mListItems) {
-                    if (people.getDisplayName().toLowerCase().contains(constraint.toString().toLowerCase())) {
-                        mSuggestions.add(people);
-                    }
-                }
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = mSuggestions;
-                filterResults.count = mSuggestions.size();
-                return filterResults;
-            } else {
-                return new FilterResults();
-            }
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            List<ContactModel> filterList = (ArrayList<ContactModel>) results.values;
-            if (results != null && results.count > 0) {
-                mResultList.clear();
-                for (ContactModel people : filterList) {
-                    mResultList.add(people);
-                    notifyDataSetChanged();
-                }
-            }else if(results != null && results.count == 0){
-                EmergencySMSModel.getInstance().setSelectedContact(null);
-            }
-        }
-    }
 }

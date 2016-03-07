@@ -10,7 +10,7 @@ import com.praxisgs.emergencysms.controllers.ServiceControllerInterface;
 import com.praxisgs.emergencysms.services.EmergencySMSService;
 import com.praxisgs.emergencysms.utils.AppNavigationEnum;
 
-public class EmergencySMSActivity extends BaseActivity implements AppNavigationControllerInterface,ServiceControllerInterface {
+public class EmergencySMSActivity extends BaseActivity implements AppNavigationControllerInterface, ServiceControllerInterface {
 
     private AppNavigationController mAppNavigationController;
     private ServiceController mServiceController;
@@ -54,7 +54,6 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
     }
 
 
-
     @Override
     public void showPreviousPage() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
@@ -68,6 +67,14 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
     @Override
     public void showSettingsPage() {
         showFragment(AppNavigationEnum.SETTINGS.getFragmentTag(), null, AppNavigationEnum.SETTINGS.getTitle(), true);
+    }
+
+    /**
+     * Show Contact page
+     */
+    @Override
+    public void showContactsPage() {
+        showDialogFragment(AppNavigationEnum.CONTACTS.getFragmentTag(), null);
     }
 
     /**

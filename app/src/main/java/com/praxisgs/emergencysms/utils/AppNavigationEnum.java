@@ -1,6 +1,7 @@
 package com.praxisgs.emergencysms.utils;
 
 
+import com.praxisgs.emergencysms.pages.ContactsListDialog;
 import com.praxisgs.emergencysms.pages.PasscodeFragment;
 import com.praxisgs.emergencysms.pages.SettingsFragment;
 
@@ -10,7 +11,8 @@ import com.praxisgs.emergencysms.pages.SettingsFragment;
 public enum AppNavigationEnum {
 
     SETTINGS(SettingsFragment.TAG,"Settings"),
-    PASSCODE(PasscodeFragment.TAG,"Passcode");
+    PASSCODE(PasscodeFragment.TAG,"Passcode"),
+    CONTACTS(ContactsListDialog.TAG,"Contacts");
 
     private String fragmentTag;
     private String title;

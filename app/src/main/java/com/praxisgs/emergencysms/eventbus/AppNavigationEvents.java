@@ -5,10 +5,15 @@ package com.praxisgs.emergencysms.eventbus;
  */
 public class AppNavigationEvents {
 
-    public static class EventShowPreviousPage{}
+    public static class EventShowPreviousPage {
+    }
 
     public static class EventShowPassCodePage {
     }
 
-    public static class EventShowSettingsPage {}
+    public static class EventShowSettingsPage {
+    }
+
+    public static class EventShowContactPage {
+    }
 }

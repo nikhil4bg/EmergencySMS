@@ -17,11 +17,14 @@ public interface AppNavigationControllerInterface {
     void showPreviousPage();
 
     /**
-     *Show Settings Page
+     * Show Settings Page
      */
 
     void showSettingsPage();
 
 
-
+    /**
+     * Show Contact page
+     */
+    void showContactsPage();
 }

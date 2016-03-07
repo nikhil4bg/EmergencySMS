@@ -13,7 +13,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.praxisgs.emergencysms.R;
-import com.praxisgs.emergencysms.adapters.ContactsAdapter;
 import com.praxisgs.emergencysms.base.BaseFragment;
 import com.praxisgs.emergencysms.model.ContactModel;
 import com.praxisgs.emergencysms.model.SettingModel;
@@ -26,12 +25,13 @@ import java.util.List;
  */
 public class SettingsFragment extends BaseFragment<SettingsPresenter> implements SettingsPresenter.ViewInterface {
     public static final String TAG = SettingsFragment.class.getName();
-    private AutoCompleteTextView mContactEditText;
+    private EditText mContactEditText;
     private AutoCompleteTextView mContactsEditBox;
     private CheckBox mLocationEnabledCheckBox;
     private CheckBox mServiceEnabledCheckBox;
     private Button mSaveButton;
     private EditText mMessageEditText;
+    private Button mChooseContact;
 
     @Override
     protected SettingsPresenter instantiatePresenter() {
@@ -47,11 +47,8 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
     }
 
     private void bindView(View view) {
-        List<ContactModel> contactModels = mPresenter.retrieveContacts();
         SettingModel settingModel = mPresenter.getSettings();
-        mContactEditText = (AutoCompleteTextView) view.findViewById(R.id.contect_editText);
-        mContactEditText.setEnabled(false);
-        mContactEditText.setAdapter(new ContactsAdapter(getAppContext(), contactModels));
+        mContactEditText = (EditText) view.findViewById(R.id.contect_editText);
 
         mLocationEnabledCheckBox = (CheckBox) view.findViewById(R.id.include_location_checkBox);
         mServiceEnabledCheckBox = (CheckBox) view.findViewById(R.id.start_service_checkBox);
@@ -71,6 +68,14 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
             @Override
             public void onClick(View v) {
                 mPresenter.saveSettings(mLocationEnabledCheckBox.isChecked(), mServiceEnabledCheckBox.isChecked(), mMessageEditText.getText().toString());
+            }
+        });
+
+        mChooseContact = (Button) view.findViewById(R.id.choose_contact_settings_btn);
+        mChooseContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.chooseContactClicked();
             }
         });
 

@@ -23,12 +23,16 @@ public class AppNavigationController {
     }
 
 
-    public void onEvent(AppNavigationEvents.EventShowPreviousPage event){
+    public void onEvent(AppNavigationEvents.EventShowPreviousPage event) {
         implementer.showPreviousPage();
     }
 
-    public void onEvent(AppNavigationEvents.EventShowSettingsPage event){
+    public void onEvent(AppNavigationEvents.EventShowSettingsPage event) {
         implementer.showSettingsPage();
+    }
+
+    public void onEvent(AppNavigationEvents.EventShowContactPage event) {
+        implementer.showContactsPage();
     }
 
     public void destroy() {
