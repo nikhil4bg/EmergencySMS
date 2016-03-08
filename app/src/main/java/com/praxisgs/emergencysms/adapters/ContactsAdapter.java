@@ -13,10 +13,14 @@ import android.widget.TextView;
 import com.praxisgs.emergencysms.R;
 import com.praxisgs.emergencysms.model.ContactModel;
 
+import java.util.HashMap;
+
 /**
  * Created on 02/03/2016.
  */
 public class ContactsAdapter extends BaseAdapter {
+    public static final String MOBILE_NUMBER_KEY = "mobile_number_key";
+    public static final String DISPLAY_NAME_KEY = "display_name_key";
 
 //        implements Filterable {
 
@@ -96,7 +100,10 @@ public class ContactsAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-//        ContactModel listItem = getItem(position);
+//        HashMap<String, String> contactDetails = getContactDetails(mCursor);
+//        viewHolder.displayName.setText(contactDetails.get(DISPLAY_NAME_KEY));
+//        viewHolder.mobileNumber.setText(contactDetails.get(MOBILE_NUMBER_KEY));
+
         String contactId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts._ID));
         String displayName = mCursor.getString(mCursor.getColumnIndex(Build.VERSION.SDK_INT
                 >= Build.VERSION_CODES.HONEYCOMB ?
@@ -127,6 +134,36 @@ public class ContactsAdapter extends BaseAdapter {
         return convertView;
     }
 
+//    public HashMap<String, String> getContactDetails(Cursor cursor) {
+//        HashMap<String,String> contactDetails = new HashMap<>();
+//        String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+//        String displayName = cursor.getString(cursor.getColumnIndex(Build.VERSION.SDK_INT
+//                >= Build.VERSION_CODES.HONEYCOMB ?
+//                ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
+//                ContactsContract.Contacts.DISPLAY_NAME));
+//        String mobileNumber = "No Mobile number available";
+//        contactDetails.put(DISPLAY_NAME_KEY,displayName);
+//
+//        Cursor phones = mContext.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
+//        if (phones != null) {
+//            while (phones.moveToNext()) {
+//                int phoneType = phones.getInt(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE));
+//                if (phoneType == ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE) {
+//                    mobileNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA));
+//                    mobileNumber = mobileNumber.replaceAll("\\s", "");
+//                    phones.close();
+//                    break;
+//                } else {
+//                    phones.close();
+//                    break;
+//                }
+//            }
+//            phones.close();
+//        }
+//        contactDetails.put(MOBILE_NUMBER_KEY,mobileNumber);
+//
+//        return contactDetails;
+//    }
 
     class ViewHolder {
         TextView displayName;

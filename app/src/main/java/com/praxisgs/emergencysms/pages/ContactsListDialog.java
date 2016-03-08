@@ -3,16 +3,14 @@ package com.praxisgs.emergencysms.pages;
 
 import android.app.Fragment;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.praxisgs.emergencysms.R;
@@ -23,15 +21,9 @@ import com.praxisgs.emergencysms.utils.AppNavigationEnum;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ContactsListDialog extends BaseDialogFragment<ContactsListPresenter> implements ContactsListPresenter.ViewInterface,
-        LoaderManager.LoaderCallbacks<Cursor> {
+public class ContactsListDialog extends BaseDialogFragment<ContactsListPresenter> implements ContactsListPresenter.ViewInterface {
     public static final String TAG = ContactsListDialog.class.getName();
 
-    String[] projection = {ContactsContract.Contacts._ID, Build.VERSION.SDK_INT
-            >= Build.VERSION_CODES.HONEYCOMB ?
-            ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
-            ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.Contacts.HAS_PHONE_NUMBER};
-    String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "=1";
     private ListView mContactsListview;
 
 
@@ -43,7 +35,8 @@ public class ContactsListDialog extends BaseDialogFragment<ContactsListPresenter
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().getSupportLoaderManager().initLoader(1, null, this);
+        mPresenter.initiateLoader();
+
     }
 
     @Override
@@ -57,35 +50,49 @@ public class ContactsListDialog extends BaseDialogFragment<ContactsListPresenter
     private void bindView(View view) {
         getDialog().setTitle(AppNavigationEnum.CONTACTS.getTitle());
         mContactsListview = (ListView) view.findViewById(R.id.contacts_listview);
+        mContactsListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
     }
 
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(getAppContext(), ContactsContract.Contacts.CONTENT_URI, projection, selection, null, null);
+//    @Override
+//    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+//        return new CursorLoader(getAppContext(), ContactsContract.Contacts.CONTENT_URI, projection, selection, null, null);
+//    }
+//
+//    @Override
+//    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+//        cursor.moveToFirst();
+//        ContactsAdapter adapter = new ContactsAdapter(getAppContext(), cursor);
+//        mContactsListview.setAdapter(adapter);
+//
+//        while (!cursor.isAfterLast()) {
+//            //TODO
+//            cursor.moveToNext();
+//        }
+//    }
+//
+//    @Override
+//    public void onDestroy() {
+//        getActivity().getSupportLoaderManager().destroyLoader(1);
+//        super.onDestroy();
+//    }
+//
+//    @Override
+//    public void onLoaderReset(Loader<Cursor> loader) {
+//
+//    }
+
+    public FragmentActivity getAppActivity() {
+        return getActivity();
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        cursor.moveToFirst();
-        ContactsAdapter adapter = new ContactsAdapter(getAppContext(), cursor);
+    public void contactLoadingFinished(ContactsAdapter adapter) {
         mContactsListview.setAdapter(adapter);
-
-        while (!cursor.isAfterLast()) {
-            //TODO
-            cursor.moveToNext();
-        }
     }
-
-    @Override
-    public void onDestroy() {
-        getActivity().getSupportLoaderManager().destroyLoader(1);
-        super.onDestroy();
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
-    }
-
 }
