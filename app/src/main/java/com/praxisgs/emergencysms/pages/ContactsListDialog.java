@@ -12,11 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.praxisgs.emergencysms.R;
+import com.praxisgs.emergencysms.adapters.ContactCursorAdapter;
 import com.praxisgs.emergencysms.adapters.ContactsAdapter;
 import com.praxisgs.emergencysms.base.BaseDialogFragment;
 import com.praxisgs.emergencysms.utils.AppNavigationEnum;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,7 +57,11 @@ public class ContactsListDialog extends BaseDialogFragment<ContactsListPresenter
         mContactsListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                ContactCursorAdapter cursorAdaptor = ((ContactCursorAdapter) parent.getAdapter());
+                Cursor cursor = cursorAdaptor.getCursor();
+                cursor.moveToPosition(position);
+                HashMap<String, String> contactDetails = cursorAdaptor.getContactDetails(cursor);
+                Toast.makeText(getAppContext(), "contactDetails name: " + contactDetails.get(ContactCursorAdapter.DISPLAY_NAME_KEY), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -92,7 +100,7 @@ public class ContactsListDialog extends BaseDialogFragment<ContactsListPresenter
     }
 
     @Override
-    public void contactLoadingFinished(ContactsAdapter adapter) {
+    public void contactLoadingFinished(ContactCursorAdapter adapter) {
         mContactsListview.setAdapter(adapter);
     }
 }

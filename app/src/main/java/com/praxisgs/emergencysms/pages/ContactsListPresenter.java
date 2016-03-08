@@ -13,6 +13,7 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.praxisgs.emergencysms.adapters.ContactCursorAdapter;
 import com.praxisgs.emergencysms.adapters.ContactsAdapter;
 import com.praxisgs.emergencysms.base.BasePresenter;
 
@@ -46,7 +47,7 @@ public class ContactsListPresenter implements BasePresenter, LoaderManager.Loade
 
         FragmentActivity getActivity();
 
-        void contactLoadingFinished(ContactsAdapter adapter);
+        void contactLoadingFinished(ContactCursorAdapter adapter);
     }
 
     @Override
@@ -92,8 +93,9 @@ public class ContactsListPresenter implements BasePresenter, LoaderManager.Loade
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         cursor.moveToFirst();
-        ContactsAdapter adapter = new ContactsAdapter(getAppContext(), cursor);
-        mView.contactLoadingFinished(adapter);
+        ContactCursorAdapter contactCursorAdapter = new ContactCursorAdapter(getAppContext(),cursor,0);
+       // ContactsAdapter adapter = new ContactsAdapter(getAppContext(), cursor);
+        mView.contactLoadingFinished(contactCursorAdapter);
 //
 //
 //        while (!cursor.isAfterLast()) {
