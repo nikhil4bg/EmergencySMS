@@ -32,8 +32,8 @@ public class EmergencySMSService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Let it continue running until it is stopped.
         Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
-        if(mSettings!=null && mSettings.getContactModels().size()>0){
-            Toast.makeText(this, "mSettings Mobile: " + mSettings.getContactModels().get(0).getMobileNumber(), Toast.LENGTH_LONG).show();
+        if(mSettings!=null){
+            Toast.makeText(this, "mSettings Mobile: " + mSettings.getContactModels().getMobileNumber(), Toast.LENGTH_LONG).show();
             Toast.makeText(this, "mSettings message: " + mSettings.getMessage(), Toast.LENGTH_LONG).show();
         }else{
             Toast.makeText(this, "Please select a contact before you use this service ", Toast.LENGTH_LONG).show();

@@ -16,6 +16,15 @@ import android.view.ViewGroup;
 import com.praxisgs.emergencysms.adapters.ContactCursorAdapter;
 import com.praxisgs.emergencysms.adapters.ContactsAdapter;
 import com.praxisgs.emergencysms.base.BasePresenter;
+import com.praxisgs.emergencysms.eventbus.EmergencySMSEventBus;
+import com.praxisgs.emergencysms.eventbus.EventDataChanged;
+import com.praxisgs.emergencysms.eventbus.ServiceEvents;
+import com.praxisgs.emergencysms.model.ContactModel;
+import com.praxisgs.emergencysms.model.EmergencySMSModel;
+import com.praxisgs.emergencysms.model.SettingModel;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created on ${<VARIABLE_DATE>}.
@@ -42,12 +51,15 @@ public class ContactsListPresenter implements BasePresenter, LoaderManager.Loade
     }
 
 
+
+
     public interface ViewInterface {
         Context getAppContext();
 
         FragmentActivity getActivity();
 
         void contactLoadingFinished(ContactCursorAdapter adapter);
+        void dismiss();
     }
 
     @Override
@@ -107,5 +119,26 @@ public class ContactsListPresenter implements BasePresenter, LoaderManager.Loade
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+
+    public void contactSelected(HashMap<String, String> contactDetails) {
+        SettingModel settingModel = EmergencySMSModel.getInstance().getSettingModel();
+        if(settingModel == null){
+            settingModel = new SettingModel();
+            settingModel.setLocationIncluded(false);
+            settingModel.setServiceEnabled(false);
+            settingModel.setMessage("");
+        }
+
+        ContactModel tempContactModel = new ContactModel();
+        tempContactModel.setDisplayName(contactDetails.get(ContactCursorAdapter.DISPLAY_NAME_KEY));
+        tempContactModel.setMobileNumber(contactDetails.get(ContactCursorAdapter.MOBILE_NUMBER_KEY));
+        tempContactModel.setId(contactDetails.get(ContactCursorAdapter.ID));
+        settingModel.setContactModels(tempContactModel);
+
+        EmergencySMSModel.getInstance().setSettingModel(settingModel);
+
+        EmergencySMSEventBus.post(new EventDataChanged());
+        mView.dismiss();
     }
 }

@@ -23,6 +23,7 @@ public class ContactCursorAdapter extends CursorAdapter {
     private final LayoutInflater mCursorInflater;
     public static final String MOBILE_NUMBER_KEY = "mobile_number_key";
     public static final String DISPLAY_NAME_KEY = "display_name_key";
+    public static final String ID = "id";
 
     public ContactCursorAdapter(Context context, Cursor cursor, int flag) {
         super(context, cursor,flag);
@@ -73,7 +74,7 @@ public class ContactCursorAdapter extends CursorAdapter {
                 >= Build.VERSION_CODES.HONEYCOMB ?
                 ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
                 ContactsContract.Contacts.DISPLAY_NAME));
-        String mobileNumber = "No Mobile number available";
+        String mobileNumber = mContext.getResources().getString(R.string.no_mobile_number_avaialble);
         contactDetails.put(DISPLAY_NAME_KEY,displayName);
 
         Cursor phones = mContext.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
@@ -93,6 +94,7 @@ public class ContactCursorAdapter extends CursorAdapter {
             phones.close();
         }
 
+        contactDetails.put(ID,contactId);
         contactDetails.put(MOBILE_NUMBER_KEY,mobileNumber);
 
         return contactDetails;

@@ -2,25 +2,23 @@ package com.praxisgs.emergencysms.model;
 
 import com.google.gson.annotations.Expose;
 
-import java.util.ArrayList;
-
 /**
  * Created on 03/03/2016.
  */
 public class SettingModel {
 
     @Expose
-    private ArrayList<ContactModel> contactModels;
+    private ContactModel contactModels;
     @Expose
     private boolean locationIncluded, serviceEnabled;
     @Expose
     private String message;
 
-    public ArrayList<ContactModel> getContactModels() {
+    public ContactModel getContactModels() {
         return contactModels;
     }
 
-    public void setContactModels(ArrayList<ContactModel> contactModels) {
+    public void setContactModels(ContactModel contactModels) {
         this.contactModels = contactModels;
     }
 

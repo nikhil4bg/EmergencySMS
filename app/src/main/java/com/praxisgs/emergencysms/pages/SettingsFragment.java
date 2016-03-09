@@ -47,27 +47,19 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
     }
 
     private void bindView(View view) {
-        SettingModel settingModel = mPresenter.getSettings();
+
         mContactEditText = (EditText) view.findViewById(R.id.contect_editText);
 
         mLocationEnabledCheckBox = (CheckBox) view.findViewById(R.id.include_location_checkBox);
         mServiceEnabledCheckBox = (CheckBox) view.findViewById(R.id.start_service_checkBox);
         mMessageEditText = (EditText) view.findViewById(R.id.enter_message_editText);
 
-        if (settingModel != null) {
-            if (settingModel.getContactModels() != null && settingModel.getContactModels().size() > 0) {
-                mContactEditText.setText(settingModel.getContactModels().get(0).getDisplayName());
-            }
-            mLocationEnabledCheckBox.setChecked(settingModel.isLocationIncluded());
-            mServiceEnabledCheckBox.setChecked(settingModel.isServiceEnabled());
-            mMessageEditText.setText(settingModel.getMessage());
-        }
 
         mSaveButton = (Button) view.findViewById(R.id.save_settings_btn);
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.saveSettings(mLocationEnabledCheckBox.isChecked(), mServiceEnabledCheckBox.isChecked(), mMessageEditText.getText().toString());
+                mPresenter.saveSettings(mContactEditText.getText().toString(),mLocationEnabledCheckBox.isChecked(), mServiceEnabledCheckBox.isChecked(), mMessageEditText.getText().toString());
             }
         });
 
@@ -79,15 +71,22 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
             }
         });
 
+        updateUI();
+
 
     }
 
 
     @Override
-    public void contactsLoaded() {
-        if (!mContactEditText.isEnabled()) {
-            mContactEditText.setEnabled(true);
-            mContactEditText.setHint(R.string.type_in_the_contact_name);
+    public void updateUI() {
+        SettingModel settingModel = mPresenter.getSettings();
+        if (settingModel != null) {
+            if (settingModel.getContactModels() != null) {
+                mContactEditText.setText(settingModel.getContactModels().getDisplayName());
+            }
+            mLocationEnabledCheckBox.setChecked(settingModel.isLocationIncluded());
+            mServiceEnabledCheckBox.setChecked(settingModel.isServiceEnabled());
+            mMessageEditText.setText(settingModel.getMessage());
         }
     }
 }

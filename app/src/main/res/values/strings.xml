@@ -11,4 +11,5 @@
     <string name="choose_contact">Choose Contact</string>
     <string name="enter_number">Enter Number</string>
     <string name="no_contacts">No contacts</string>
+    <string name="no_mobile_number_avaialble">No mobile number available</string>
 </resources>

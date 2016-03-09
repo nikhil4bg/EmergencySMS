@@ -24,9 +24,6 @@ public class EmergencySMSModel {
     @Expose
     private SettingModel settingModel;
 
-    @Expose
-    private ContactModel selectedContact;
-
     public static void initialise(Context context) {
         if (instance == null) {
             instance = new EmergencySMSModel(context);
@@ -60,7 +57,6 @@ public class EmergencySMSModel {
             EmergencySMSModel model = gson.fromJson(modelStr, EmergencySMSModel.class);
             setPassCodeModel(model.getPassCodeModel());
             setSettingModel(model.getSettingModel());
-            setSelectedContact(model.getSelectedContact());
         }
     }
 
@@ -92,11 +88,4 @@ public class EmergencySMSModel {
         this.settingModel = settingModel;
     }
 
-    public void setSelectedContact(ContactModel selectedContact) {
-        this.selectedContact = selectedContact;
-    }
-
-    public ContactModel getSelectedContact() {
-        return selectedContact;
-    }
 }

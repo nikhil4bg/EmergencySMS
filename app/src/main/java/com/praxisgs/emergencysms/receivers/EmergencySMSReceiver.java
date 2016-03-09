@@ -10,9 +10,11 @@ import com.praxisgs.emergencysms.model.SettingModel;
 
 public class EmergencySMSReceiver extends BroadcastReceiver {
     private static int mCountPowerButtonClick = 0;
-    private final SettingModel mSettings;
+    private SettingModel mSettings;
     private long mPreviousTimeStamp;
     private final int mRequiredInterval = 1000;
+
+    public EmergencySMSReceiver(){}
 
     public EmergencySMSReceiver(SettingModel settings) {
         this.mSettings = settings;
@@ -49,7 +51,7 @@ public class EmergencySMSReceiver extends BroadcastReceiver {
             mCountPowerButtonClick = 0;
 
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(mSettings.getContactModels().get(0).getMobileNumber(), null, mSettings.getMessage(), null, null);
+            smsManager.sendTextMessage(mSettings.getContactModels().getMobileNumber(), null, mSettings.getMessage(), null, null);
         }
     }
 
