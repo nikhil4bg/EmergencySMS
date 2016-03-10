@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.praxisgs.emergencysms.adapters.ContactCursorAdapter;
 import com.praxisgs.emergencysms.base.BasePresenter;
@@ -25,15 +26,6 @@ import java.util.ArrayList;
 public class SettingsPresenter implements BasePresenter {
     private ViewInterface mView;
 
-//    ArrayList<ContactModel> mContactModelList = new ArrayList<>();
-//
-//    String[] projection = {ContactsContract.Contacts._ID, Build.VERSION.SDK_INT
-//            >= Build.VERSION_CODES.HONEYCOMB ?
-//            ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
-//            ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.Contacts.HAS_PHONE_NUMBER};
-//
-//    String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "=1";
-
     private SettingsPresenter(ViewInterface viewInterface) {
         this.mView = viewInterface;
     }
@@ -46,27 +38,22 @@ public class SettingsPresenter implements BasePresenter {
         return EmergencySMSModel.getInstance().getSettingModel();
     }
 
-    public void saveSettings(String contactNumber, boolean locationEnabled, boolean serviceEnabled, String message) {
+    public void saveSettings(boolean locationEnabled, boolean serviceEnabled, String message) {
         SettingModel settingModel = EmergencySMSModel.getInstance().getSettingModel();
         if(settingModel == null){
-            settingModel = new SettingModel();
-            ContactModel tempContactModel = new ContactModel();
-            tempContactModel.setDisplayName("UNKNOWN");
-            tempContactModel.setMobileNumber(contactNumber);
-            tempContactModel.setId("UNKNOWN");
-            settingModel.setContactModels(tempContactModel);
-        }
-        settingModel.setLocationIncluded(locationEnabled);
-        settingModel.setServiceEnabled(serviceEnabled);
-        settingModel.setMessage(message);
+            Toast.makeText(getAppContext(),"Please select a Contact",Toast.LENGTH_LONG).show();
+        }else{
+            settingModel.setLocationIncluded(locationEnabled);
+            settingModel.setServiceEnabled(serviceEnabled);
+            settingModel.setMessage(message);
+            EmergencySMSModel.getInstance().setSettingModel(settingModel);
 
-        EmergencySMSModel.getInstance().setSettingModel(settingModel);
-
-        if (serviceEnabled) {
-            EmergencySMSEventBus.post(new ServiceEvents.EventStopEmergencySMSService());
-            EmergencySMSEventBus.post(new ServiceEvents.EventStartEmergencySMSService());
-        } else {
-            EmergencySMSEventBus.post(new ServiceEvents.EventStopEmergencySMSService());
+            if (serviceEnabled) {
+                EmergencySMSEventBus.post(new ServiceEvents.EventStopEmergencySMSService());
+                EmergencySMSEventBus.post(new ServiceEvents.EventStartEmergencySMSService());
+            } else {
+                EmergencySMSEventBus.post(new ServiceEvents.EventStopEmergencySMSService());
+            }
         }
     }
 

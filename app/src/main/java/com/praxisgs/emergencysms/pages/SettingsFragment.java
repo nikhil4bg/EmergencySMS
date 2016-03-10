@@ -11,13 +11,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.praxisgs.emergencysms.R;
 import com.praxisgs.emergencysms.base.BaseFragment;
-import com.praxisgs.emergencysms.model.ContactModel;
 import com.praxisgs.emergencysms.model.SettingModel;
-
-import java.util.List;
 
 
 /**
@@ -25,7 +23,7 @@ import java.util.List;
  */
 public class SettingsFragment extends BaseFragment<SettingsPresenter> implements SettingsPresenter.ViewInterface {
     public static final String TAG = SettingsFragment.class.getName();
-    private EditText mContactEditText;
+    private TextView mContactText;
     private AutoCompleteTextView mContactsEditBox;
     private CheckBox mLocationEnabledCheckBox;
     private CheckBox mServiceEnabledCheckBox;
@@ -48,7 +46,7 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
 
     private void bindView(View view) {
 
-        mContactEditText = (EditText) view.findViewById(R.id.contect_editText);
+        mContactText = (TextView) view.findViewById(R.id.contect_Text);
 
         mLocationEnabledCheckBox = (CheckBox) view.findViewById(R.id.include_location_checkBox);
         mServiceEnabledCheckBox = (CheckBox) view.findViewById(R.id.start_service_checkBox);
@@ -59,7 +57,7 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.saveSettings(mContactEditText.getText().toString(),mLocationEnabledCheckBox.isChecked(), mServiceEnabledCheckBox.isChecked(), mMessageEditText.getText().toString());
+                mPresenter.saveSettings(mLocationEnabledCheckBox.isChecked(), mServiceEnabledCheckBox.isChecked(), mMessageEditText.getText().toString());
             }
         });
 
@@ -82,7 +80,7 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
         SettingModel settingModel = mPresenter.getSettings();
         if (settingModel != null) {
             if (settingModel.getContactModels() != null) {
-                mContactEditText.setText(settingModel.getContactModels().getDisplayName());
+                mContactText.setText(settingModel.getContactModels().getDisplayName());
             }
             mLocationEnabledCheckBox.setChecked(settingModel.isLocationIncluded());
             mServiceEnabledCheckBox.setChecked(settingModel.isServiceEnabled());

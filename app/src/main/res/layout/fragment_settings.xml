@@ -6,22 +6,23 @@
     android:padding="@dimen/fab_large_margin">
 
 
-    <EditText
-        android:id="@+id/contect_editText"
+    <TextView
+        android:id="@+id/contect_Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/fab_large_margin"
-        android:completionThreshold="1"
-        android:hint="@string/enter_number" />
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        android:textColor="@android:color/black"
+        android:hint="@string/choose_contact"/>
 
     <Button
         android:id="@+id/choose_contact_settings_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/choose_contact"
-        android:layout_below="@+id/contect_editText"
+        android:layout_below="@+id/contect_Text"
         android:layout_marginTop="@dimen/fab_small_margin"/>
 
     <CheckBox

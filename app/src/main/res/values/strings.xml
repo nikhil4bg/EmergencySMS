@@ -8,8 +8,7 @@
     <string name="type_in_the_contact_name">Type in the contact name</string>
     <string name="type_message_to_send">Type message to send</string>
     <string name="save">Save</string>
-    <string name="choose_contact">Choose Contact</string>
-    <string name="enter_number">Enter Number</string>
+    <string name="choose_contact">Choose from Contacts</string>
     <string name="no_contacts">No contacts</string>
     <string name="no_mobile_number_avaialble">No mobile number available</string>
 </resources>
