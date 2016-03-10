@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.praxisgs.emergencysms.eventbus.EmergencySMSEventBus;
 import com.praxisgs.emergencysms.model.EmergencySMSModel;
+import com.praxisgs.emergencysms.utils.AppUtils;
 
 
 /**
@@ -16,5 +17,6 @@ public class EmergencySMSApplication extends Application {
         super.onCreate();
         EmergencySMSModel.initialise(this);
         EmergencySMSEventBus.initialise();
+        AppUtils.initialise(this);
     }
 }

@@ -1,9 +1,9 @@
 package com.praxisgs.emergencysms.base;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,17 +13,32 @@ import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import com.praxisgs.emergencysms.R;
+import com.praxisgs.emergencysms.controllers.SnackBarController;
+import com.praxisgs.emergencysms.controllers.SnackBarControllerInterface;
+import com.praxisgs.emergencysms.utils.SnackBarManager;
 
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements SnackBarControllerInterface{
 
     final String TAG = BaseActivity.class.getName();
+    private SnackBarManager mSnackbarManager;
+    private SnackBarController mSnackBarController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_activity);
         setBackStackListner();
+        initialiseControllers();
+        setSnackBarManager();
+    }
+
+    private void initialiseControllers() {
+        mSnackBarController = new SnackBarController(this);
+    }
+
+    private void setSnackBarManager() {
+        mSnackbarManager = new SnackBarManager();
     }
 
     private void setBackStackListner() {
@@ -41,8 +56,22 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    @Override
+    public void showInformation(int messageResId, String... parameters){
+        mSnackbarManager.showInformationMessage(messageResId,this,parameters);
+    }
 
+    @Override
+    public void showError(int messageResId, String... parameters){
+        mSnackbarManager.showErrorMessage(messageResId,this,parameters);
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSnackBarController.destroy();
+        mSnackbarManager = null;
+    }
 
     private void hideKeyboard() {
         try {

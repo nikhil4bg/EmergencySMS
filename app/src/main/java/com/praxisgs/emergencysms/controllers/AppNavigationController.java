@@ -10,32 +10,33 @@ import com.praxisgs.emergencysms.eventbus.EmergencySMSEventBus;
 public class AppNavigationController {
 
     private final String TAG = AppNavigationController.class.getName();
-    private final AppNavigationControllerInterface implementer;
+    private AppNavigationControllerInterface mImplementer;
 
     public AppNavigationController(AppNavigationControllerInterface implementer) {
-        this.implementer = implementer;
+        this.mImplementer = implementer;
         EmergencySMSEventBus.register(this);
     }
 
 
     public void onEvent(AppNavigationEvents.EventShowPassCodePage event) {
-        implementer.showPassCodePage();
+        mImplementer.showPassCodePage();
     }
 
 
     public void onEvent(AppNavigationEvents.EventShowPreviousPage event) {
-        implementer.showPreviousPage();
+        mImplementer.showPreviousPage();
     }
 
     public void onEvent(AppNavigationEvents.EventShowSettingsPage event) {
-        implementer.showSettingsPage();
+        mImplementer.showSettingsPage();
     }
 
     public void onEvent(AppNavigationEvents.EventShowContactPage event) {
-        implementer.showContactsPage();
+        mImplementer.showContactsPage();
     }
 
     public void destroy() {
+        mImplementer = null;
         EmergencySMSEventBus.unregister(this);
     }
 

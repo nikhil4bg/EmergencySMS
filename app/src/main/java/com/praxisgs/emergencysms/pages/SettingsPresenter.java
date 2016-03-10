@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.praxisgs.emergencysms.R;
 import com.praxisgs.emergencysms.adapters.ContactCursorAdapter;
 import com.praxisgs.emergencysms.base.BasePresenter;
 import com.praxisgs.emergencysms.eventbus.AppNavigationEvents;
 import com.praxisgs.emergencysms.eventbus.EmergencySMSEventBus;
 import com.praxisgs.emergencysms.eventbus.EventDataChanged;
 import com.praxisgs.emergencysms.eventbus.ServiceEvents;
+import com.praxisgs.emergencysms.eventbus.SnackBarEvents;
 import com.praxisgs.emergencysms.model.ContactModel;
 import com.praxisgs.emergencysms.model.EmergencySMSModel;
 import com.praxisgs.emergencysms.model.SettingModel;
@@ -41,7 +43,7 @@ public class SettingsPresenter implements BasePresenter {
     public void saveSettings(boolean locationEnabled, boolean serviceEnabled, String message) {
         SettingModel settingModel = EmergencySMSModel.getInstance().getSettingModel();
         if(settingModel == null){
-            Toast.makeText(getAppContext(),"Please select a Contact",Toast.LENGTH_LONG).show();
+            EmergencySMSEventBus.post(new SnackBarEvents.EventInformation(R.string.please_select_contact));
         }else{
             settingModel.setLocationIncluded(locationEnabled);
             settingModel.setServiceEnabled(serviceEnabled);
@@ -54,6 +56,7 @@ public class SettingsPresenter implements BasePresenter {
             } else {
                 EmergencySMSEventBus.post(new ServiceEvents.EventStopEmergencySMSService());
             }
+             EmergencySMSEventBus.post(new SnackBarEvents.EventInformation(R.string.saved));
         }
     }
 

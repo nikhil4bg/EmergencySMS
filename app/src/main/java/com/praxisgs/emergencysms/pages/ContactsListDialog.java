@@ -61,11 +61,7 @@ public class ContactsListDialog extends BaseDialogFragment<ContactsListPresenter
                 Cursor cursor = cursorAdaptor.getCursor();
                 cursor.moveToPosition(position);
                 HashMap<String, String> contactDetails = cursorAdaptor.getContactDetails(cursor);
-                if(contactDetails.get(ContactCursorAdapter.MOBILE_NUMBER_KEY).equalsIgnoreCase(getResources().getString(R.string.no_mobile_number_avaialble))){
-                    Toast.makeText(getAppContext(), contactDetails.get(ContactCursorAdapter.DISPLAY_NAME_KEY) + " do not have a mobile number.", Toast.LENGTH_LONG).show();
-                }else{
                     mPresenter.contactSelected(contactDetails);
-                }
             }
         });
     }

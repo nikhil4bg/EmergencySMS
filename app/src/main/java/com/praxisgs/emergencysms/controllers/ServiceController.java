@@ -1,6 +1,5 @@
 package com.praxisgs.emergencysms.controllers;
 
-import com.praxisgs.emergencysms.eventbus.AppNavigationEvents;
 import com.praxisgs.emergencysms.eventbus.EmergencySMSEventBus;
 import com.praxisgs.emergencysms.eventbus.ServiceEvents;
 
@@ -10,24 +9,25 @@ import com.praxisgs.emergencysms.eventbus.ServiceEvents;
 public class ServiceController {
 
     private final String TAG = AppNavigationController.class.getName();
-    private final ServiceControllerInterface implementer;
+    private ServiceControllerInterface mImplementer;
 
     public ServiceController(ServiceControllerInterface implementer) {
-        this.implementer = implementer;
+        this.mImplementer = implementer;
         EmergencySMSEventBus.register(this);
     }
 
 
     public void onEvent(ServiceEvents.EventStartEmergencySMSService event) {
-        implementer.startEmergencySMSService();
+        mImplementer.startEmergencySMSService();
     }
 
 
     public void onEvent(ServiceEvents.EventStopEmergencySMSService event) {
-        implementer.stopEmergencySMSService();
+        mImplementer.stopEmergencySMSService();
     }
 
     public void destroy() {
+        mImplementer = null;
         EmergencySMSEventBus.unregister(this);
     }
 }

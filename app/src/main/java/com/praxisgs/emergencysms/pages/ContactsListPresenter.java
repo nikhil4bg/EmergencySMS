@@ -12,13 +12,16 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.praxisgs.emergencysms.R;
 import com.praxisgs.emergencysms.adapters.ContactCursorAdapter;
 import com.praxisgs.emergencysms.adapters.ContactsAdapter;
 import com.praxisgs.emergencysms.base.BasePresenter;
 import com.praxisgs.emergencysms.eventbus.EmergencySMSEventBus;
 import com.praxisgs.emergencysms.eventbus.EventDataChanged;
 import com.praxisgs.emergencysms.eventbus.ServiceEvents;
+import com.praxisgs.emergencysms.eventbus.SnackBarEvents;
 import com.praxisgs.emergencysms.model.ContactModel;
 import com.praxisgs.emergencysms.model.EmergencySMSModel;
 import com.praxisgs.emergencysms.model.SettingModel;
@@ -122,23 +125,28 @@ public class ContactsListPresenter implements BasePresenter, LoaderManager.Loade
     }
 
     public void contactSelected(HashMap<String, String> contactDetails) {
-        SettingModel settingModel = EmergencySMSModel.getInstance().getSettingModel();
-        if(settingModel == null){
-            settingModel = new SettingModel();
-            settingModel.setLocationIncluded(false);
-            settingModel.setServiceEnabled(false);
-            settingModel.setMessage("");
+        if(contactDetails.get(ContactCursorAdapter.MOBILE_NUMBER_KEY).equalsIgnoreCase(getAppContext().getResources().getString(R.string.no_mobile_number_avaialble))){
+            EmergencySMSEventBus.post(new SnackBarEvents.EventInformation(R.string.no_mobile_number_message,contactDetails.get(ContactCursorAdapter.DISPLAY_NAME_KEY)));
+        }else{
+            SettingModel settingModel = EmergencySMSModel.getInstance().getSettingModel();
+            if(settingModel == null){
+                settingModel = new SettingModel();
+                settingModel.setLocationIncluded(false);
+                settingModel.setServiceEnabled(false);
+                settingModel.setMessage("");
+            }
+
+            ContactModel tempContactModel = new ContactModel();
+            tempContactModel.setDisplayName(contactDetails.get(ContactCursorAdapter.DISPLAY_NAME_KEY));
+            tempContactModel.setMobileNumber(contactDetails.get(ContactCursorAdapter.MOBILE_NUMBER_KEY));
+            tempContactModel.setId(contactDetails.get(ContactCursorAdapter.ID));
+            settingModel.setContactModels(tempContactModel);
+
+            EmergencySMSModel.getInstance().setSettingModel(settingModel);
+
+            EmergencySMSEventBus.post(new EventDataChanged());
+            mView.dismiss();
         }
 
-        ContactModel tempContactModel = new ContactModel();
-        tempContactModel.setDisplayName(contactDetails.get(ContactCursorAdapter.DISPLAY_NAME_KEY));
-        tempContactModel.setMobileNumber(contactDetails.get(ContactCursorAdapter.MOBILE_NUMBER_KEY));
-        tempContactModel.setId(contactDetails.get(ContactCursorAdapter.ID));
-        settingModel.setContactModels(tempContactModel);
-
-        EmergencySMSModel.getInstance().setSettingModel(settingModel);
-
-        EmergencySMSEventBus.post(new EventDataChanged());
-        mView.dismiss();
     }
 }

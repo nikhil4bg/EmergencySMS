@@ -11,4 +11,11 @@
     <string name="choose_contact">Choose from Contacts</string>
     <string name="no_contacts">No contacts</string>
     <string name="no_mobile_number_avaialble">No mobile number available</string>
+
+    <!-- Information Messages -->
+    <string name="please_select_contact">Please select a Contact</string>
+    <string name="no_mobile_number_message">"%1$s do not have a mobile number."</string>
+    <string name="saved">Saved Changes.</string>
+
+    <!-- Error Messages -->
 </resources>
