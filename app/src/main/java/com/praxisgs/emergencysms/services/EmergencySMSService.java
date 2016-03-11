@@ -31,12 +31,7 @@ public class EmergencySMSService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Let it continue running until it is stopped.
-        Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
-        if(mSettings!=null){
-            Toast.makeText(this, "mSettings Mobile: " + mSettings.getContactModels().getMobileNumber(), Toast.LENGTH_LONG).show();
-            Toast.makeText(this, "mSettings message: " + mSettings.getMessage(), Toast.LENGTH_LONG).show();
-        }else{
-            Toast.makeText(this, "Please select a contact before you use this service ", Toast.LENGTH_LONG).show();
+        if(mSettings==null){
             stopSelf();
         }
 
@@ -59,7 +54,6 @@ public class EmergencySMSService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
         if (mEmergencySMSReceiver != null)
         {
             unregisterReceiver(mEmergencySMSReceiver);
