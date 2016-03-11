@@ -46,9 +46,10 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
 
     private void bindView(View view) {
 
-        mContactText = (TextView) view.findViewById(R.id.contect_Text);
+        mContactText = (TextView) view.findViewById(R.id.contect_name_text);
 
         mLocationEnabledCheckBox = (CheckBox) view.findViewById(R.id.include_location_checkBox);
+
         mServiceEnabledCheckBox = (CheckBox) view.findViewById(R.id.start_service_checkBox);
         mMessageEditText = (EditText) view.findViewById(R.id.enter_message_editText);
 

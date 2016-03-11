@@ -5,14 +5,24 @@
     android:orientation="vertical"
     android:padding="@dimen/fab_large_margin">
 
-
     <TextView
-        android:id="@+id/contect_Text"
+        android:id="@+id/send_msm_to_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/fab_large_margin"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+        android:textColor="@android:color/darker_gray"
+        android:hint="@string/send_message_to"/>
+
+    <TextView
+        android:id="@+id/contect_name_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/send_msm_to_text"
+        android:layout_marginTop="@dimen/fab_tiny_margin"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         android:textColor="@android:color/black"
         android:hint="@string/choose_contact"/>
@@ -22,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/choose_contact"
-        android:layout_below="@+id/contect_Text"
+        android:layout_below="@+id/contect_name_text"
         android:layout_marginTop="@dimen/fab_small_margin"/>
 
     <CheckBox
@@ -30,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:visibility="gone"
         android:layout_below="@+id/choose_contact_settings_btn"
         android:layout_marginTop="@dimen/fab_med_margin"
         android:buttonTint="@android:color/darker_gray"

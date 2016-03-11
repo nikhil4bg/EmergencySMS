@@ -16,6 +16,7 @@
     <string name="please_select_contact">Please select a Contact</string>
     <string name="no_mobile_number_message">"%1$s do not have a mobile number."</string>
     <string name="saved">Saved Changes.</string>
+    <string name="send_message_to">Send Message to:</string>
 
     <!-- Error Messages -->
 </resources>
