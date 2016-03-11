@@ -102,7 +102,10 @@ public class ContactsListPresenter implements BasePresenter, LoaderManager.Loade
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(getAppContext(), ContactsContract.Contacts.CONTENT_URI, projection, selection, null, null);
+        return new CursorLoader(getAppContext(), ContactsContract.Contacts.CONTENT_URI, projection, selection, null, Build.VERSION.SDK_INT
+                >= Build.VERSION_CODES.HONEYCOMB ?
+                ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
+                ContactsContract.Contacts.DISPLAY_NAME);
     }
 
     @Override

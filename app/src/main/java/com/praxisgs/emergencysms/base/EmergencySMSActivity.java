@@ -21,23 +21,21 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        initialiseControllers();
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
+        initialiseControllers();
         showPassCodePage();
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         mAppNavigationController.destroy();
         mServiceController.destroy();
+        mAppNavigationController = null;
+        mServiceController = null;
     }
+
 
     private void initialiseControllers() {
         mAppNavigationController = new AppNavigationController(this);
