@@ -2,18 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="@dimen/fab_small_margin">
 
-    <TextView
-        android:id="@+id/firstName_textView"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"/>
+        android:background="@android:drawable/star_on"
+        android:layout_gravity="center"
+        android:layout_marginRight="@dimen/fab_tiny_margin"/>
 
-    <TextView
-        android:id="@+id/mobile_textView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"/>
+        android:orientation="vertical">
+        <TextView
+            android:text="User Name"
+            android:id="@+id/firstName_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+            android:textColor="@color/SeaGreen"/>
+
+        <TextView
+            android:text="User Mobile number"
+            android:id="@+id/mobile_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+            android:textColor="@color/IndianRed"/>
+    </LinearLayout>
+
+
 </LinearLayout>

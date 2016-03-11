@@ -1,6 +1,5 @@
 package com.praxisgs.emergencysms.pages;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Build;
@@ -12,21 +11,17 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.praxisgs.emergencysms.R;
 import com.praxisgs.emergencysms.adapters.ContactCursorAdapter;
-import com.praxisgs.emergencysms.adapters.ContactsAdapter;
 import com.praxisgs.emergencysms.base.BasePresenter;
 import com.praxisgs.emergencysms.eventbus.EmergencySMSEventBus;
 import com.praxisgs.emergencysms.eventbus.EventDataChanged;
-import com.praxisgs.emergencysms.eventbus.ServiceEvents;
 import com.praxisgs.emergencysms.eventbus.SnackBarEvents;
 import com.praxisgs.emergencysms.model.ContactModel;
 import com.praxisgs.emergencysms.model.EmergencySMSModel;
 import com.praxisgs.emergencysms.model.SettingModel;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**

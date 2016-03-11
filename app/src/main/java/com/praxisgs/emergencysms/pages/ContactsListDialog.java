@@ -6,17 +6,14 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.praxisgs.emergencysms.R;
 import com.praxisgs.emergencysms.adapters.ContactCursorAdapter;
-import com.praxisgs.emergencysms.adapters.ContactsAdapter;
 import com.praxisgs.emergencysms.base.BaseDialogFragment;
 import com.praxisgs.emergencysms.utils.AppNavigationEnum;
 
