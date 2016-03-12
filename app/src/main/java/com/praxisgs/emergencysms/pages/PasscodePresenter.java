@@ -31,19 +31,19 @@ public class PasscodePresenter implements BasePresenter {
 
     public boolean isPassCodeCreated() {
         PassCodeModel passCodeModel = EmergencySMSModel.getInstance().getPassCodeModel();
-        if(passCodeModel !=null && passCodeModel.getPassCode() !=null && !passCodeModel.getPassCode().isEmpty())
+        if (passCodeModel != null && passCodeModel.getPassCode() != null && !passCodeModel.getPassCode().isEmpty())
             return true;
         return false;
     }
 
     public void passCodeEnterOKBtnClicked(String passcode) {
         PassCodeModel passCodeModel = EmergencySMSModel.getInstance().getPassCodeModel();
-        if(passCodeModel !=null && passCodeModel.getPassCode() !=null && !passCodeModel.getPassCode().isEmpty()){
+        if (passCodeModel != null && passCodeModel.getPassCode() != null && !passCodeModel.getPassCode().isEmpty()) {
             String storedPasscode = passCodeModel.getPassCode();
-            if(passcode.equals(storedPasscode)){
+            if (passcode.equals(storedPasscode)) {
                 mView.passcodeMatchSuccessfull();
                 EmergencySMSEventBus.post(new AppNavigationEvents.EventShowSettingsPage());
-            }else{
+            } else {
                 EmergencySMSEventBus.post(new SnackBarEvents.EventError(R.string.wrong_passcode));
             }
         }
@@ -51,17 +51,18 @@ public class PasscodePresenter implements BasePresenter {
     }
 
     public void createPassCodeBtnClicked(String createPassCode, String recreatePassCode) {
-        if(createPassCode.equals(recreatePassCode)){
+        if (createPassCode.equals(recreatePassCode)) {
             PassCodeModel passCodeModel = new PassCodeModel();
             passCodeModel.setPassCode(createPassCode);
             EmergencySMSModel.getInstance().setPassCodeModel(passCodeModel);
             EmergencySMSModel.getInstance().save();
             mView.passCodeCreate();
-        }else{
+        } else {
             EmergencySMSEventBus.post(new SnackBarEvents.EventError(R.string.missmatch_passcode));
         }
 
     }
+
 
     public interface ViewInterface {
         Context getAppContext();
@@ -104,5 +105,13 @@ public class PasscodePresenter implements BasePresenter {
     @Override
     public Context getAppContext() {
         return mView.getAppContext();
+    }
+
+    public void helpClicked() {
+        EmergencySMSEventBus.post(new AppNavigationEvents.EventShowHelpPage());
+    }
+
+    public void aboutClicked() {
+        EmergencySMSEventBus.post(new AppNavigationEvents.EventShowAboutPage());
     }
 }

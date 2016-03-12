@@ -27,4 +27,15 @@ public interface AppNavigationControllerInterface {
      * Show Contact page
      */
     void showContactsPage();
+
+    /**
+     * Show Help page
+     */
+    void showHelpPage();
+
+    /**
+     * Show About Page
+     */
+
+    void showAboutPage();
 }

@@ -16,4 +16,10 @@ public class AppNavigationEvents {
 
     public static class EventShowContactPage {
     }
+
+    public static class EventShowHelpPage {
+    }
+
+    public static class EventShowAboutPage {
+    }
 }

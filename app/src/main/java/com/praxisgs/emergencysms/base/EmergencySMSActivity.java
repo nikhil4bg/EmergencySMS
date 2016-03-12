@@ -75,6 +75,16 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
         showDialogFragment(AppNavigationEnum.CONTACTS.getFragmentTag(), null);
     }
 
+    @Override
+    public void showHelpPage() {
+        showFragment(AppNavigationEnum.HELP.getFragmentTag(), null, AppNavigationEnum.HELP.getTitle(), true);
+    }
+
+    @Override
+    public void showAboutPage() {
+        showFragment(AppNavigationEnum.ABOUT.getFragmentTag(), null, AppNavigationEnum.ABOUT.getTitle(), true);
+    }
+
     /**
      * Start Emergency service
      */

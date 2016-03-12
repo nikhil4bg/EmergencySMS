@@ -35,6 +35,14 @@ public class AppNavigationController {
         mImplementer.showContactsPage();
     }
 
+     public void onEvent(AppNavigationEvents.EventShowHelpPage event){
+         mImplementer.showHelpPage();
+     }
+
+    public void onEvent(AppNavigationEvents.EventShowAboutPage event){
+        mImplementer.showAboutPage();
+    }
+
     public void destroy() {
         mImplementer = null;
         EmergencySMSEventBus.unregister(this);

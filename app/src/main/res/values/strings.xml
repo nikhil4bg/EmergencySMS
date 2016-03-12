@@ -17,8 +17,10 @@
     <string name="no_mobile_number_message">"%1$s do not have a mobile number."</string>
     <string name="saved">Saved Changes.</string>
     <string name="send_message_to">Send Message to:</string>
-    <string name="wrong_passcode">Passcode entered is wrong.Please enter correct Passcode.</string>
-    <string name="missmatch_passcode">Passcode donot match.</string>
+    <string name="wrong_passcode">Passcode entered is wrong. Please retry.</string>
+    <string name="missmatch_passcode">Passcode does not match. Please enter same passcode in both fields.</string>
+    <string name="help">Help</string>
+    <string name="about">About</string>
 
     <!-- Error Messages -->
 </resources>
