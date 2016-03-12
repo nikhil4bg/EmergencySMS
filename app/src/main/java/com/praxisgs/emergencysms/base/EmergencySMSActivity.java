@@ -82,7 +82,7 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
 
     @Override
     public void showAboutPage() {
-        showFragment(AppNavigationEnum.ABOUT.getFragmentTag(), null, AppNavigationEnum.ABOUT.getTitle(), true);
+        showDialogFragment(AppNavigationEnum.ABOUT.getFragmentTag(), null);
     }
 
     /**

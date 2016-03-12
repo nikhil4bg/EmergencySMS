@@ -1,7 +1,7 @@
 package com.praxisgs.emergencysms.utils;
 
 
-import com.praxisgs.emergencysms.pages.AboutFragment;
+import com.praxisgs.emergencysms.pages.AboutDialog;
 import com.praxisgs.emergencysms.pages.ContactsListDialog;
 import com.praxisgs.emergencysms.pages.HelpFragment;
 import com.praxisgs.emergencysms.pages.PasscodeFragment;
@@ -12,16 +12,16 @@ import com.praxisgs.emergencysms.pages.SettingsFragment;
  */
 public enum AppNavigationEnum {
 
-    HELP(HelpFragment.TAG,"Help"),
-    ABOUT(AboutFragment.TAG,"About"),
-    SETTINGS(SettingsFragment.TAG,"Settings"),
-    PASSCODE(PasscodeFragment.TAG,"Passcode"),
-    CONTACTS(ContactsListDialog.TAG,"Contacts");
+    HELP(HelpFragment.TAG, "Help"),
+    ABOUT(AboutDialog.TAG, "About"),
+    SETTINGS(SettingsFragment.TAG, "Settings"),
+    PASSCODE(PasscodeFragment.TAG, "Passcode"),
+    CONTACTS(ContactsListDialog.TAG, "Contacts");
 
     private String fragmentTag;
     private String title;
 
-    AppNavigationEnum(String fragmentTag,String title){
+    AppNavigationEnum(String fragmentTag, String title) {
         this.fragmentTag = fragmentTag;
         this.title = title;
     }
