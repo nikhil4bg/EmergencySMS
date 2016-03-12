@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">EmergencySMS</string>
-    <string name="enter_passcode">Enter Passcode</string>
+    <string name="enter_passcode">Enter your Passcode</string>
     <string name="reenter_passcode">Re-enter Passcode</string>
-    <string name="create_passcode">Create Passcode</string>
+    <string name="create_passcode">Create new Passcode</string>
     <string name="include_your_location">Include Your Location</string>
     <string name="start_using_this_service">Start Using this Service</string>
     <string name="type_in_the_contact_name">Type in the contact name</string>
@@ -17,6 +17,8 @@
     <string name="no_mobile_number_message">"%1$s do not have a mobile number."</string>
     <string name="saved">Saved Changes.</string>
     <string name="send_message_to">Send Message to:</string>
+    <string name="wrong_passcode">Passcode entered is wrong.Please enter correct Passcode.</string>
+    <string name="missmatch_passcode">Passcode donot match.</string>
 
     <!-- Error Messages -->
 </resources>

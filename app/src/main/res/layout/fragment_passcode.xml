@@ -13,6 +13,7 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/passcode_enterPassCode_layout"
         android:visibility="gone">
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +45,7 @@
             android:inputType="numberPassword"
             android:ems="10"
             android:id="@+id/passcode_createPassCode"
-            android:hint="@string/enter_passcode"
+            android:hint="@string/create_passcode"
             android:textColorHint="@android:color/holo_green_dark" />
 
         <EditText

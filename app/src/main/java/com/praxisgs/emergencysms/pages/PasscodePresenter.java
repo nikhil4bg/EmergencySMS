@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 
+import com.praxisgs.emergencysms.R;
 import com.praxisgs.emergencysms.base.BasePresenter;
 import com.praxisgs.emergencysms.eventbus.AppNavigationEvents;
 import com.praxisgs.emergencysms.eventbus.EmergencySMSEventBus;
+import com.praxisgs.emergencysms.eventbus.SnackBarEvents;
 import com.praxisgs.emergencysms.model.EmergencySMSModel;
 import com.praxisgs.emergencysms.model.PassCodeModel;
 
@@ -42,7 +44,7 @@ public class PasscodePresenter implements BasePresenter {
                 mView.passcodeMatchSuccessfull();
                 EmergencySMSEventBus.post(new AppNavigationEvents.EventShowSettingsPage());
             }else{
-                //TODO Show error
+                EmergencySMSEventBus.post(new SnackBarEvents.EventError(R.string.wrong_passcode));
             }
         }
 
@@ -56,7 +58,7 @@ public class PasscodePresenter implements BasePresenter {
             EmergencySMSModel.getInstance().save();
             mView.passCodeCreate();
         }else{
-            //TODO show Error
+            EmergencySMSEventBus.post(new SnackBarEvents.EventError(R.string.missmatch_passcode));
         }
 
     }
