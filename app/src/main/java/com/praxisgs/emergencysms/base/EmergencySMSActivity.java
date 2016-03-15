@@ -1,8 +1,13 @@
 package com.praxisgs.emergencysms.base;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 
+import com.praxisgs.emergencysms.R;
 import com.praxisgs.emergencysms.controllers.AppNavigationController;
 import com.praxisgs.emergencysms.controllers.AppNavigationControllerInterface;
 import com.praxisgs.emergencysms.controllers.ServiceController;
@@ -14,6 +19,8 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
 
     private AppNavigationController mAppNavigationController;
     private ServiceController mServiceController;
+    private final int PERMISSION_READ_CONTACT_REQUEST_CODE = 1;
+    private boolean requestedForPermission = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,19 +30,20 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
     @Override
     protected void onResume() {
         super.onResume();
-        initialiseControllers();
-        showPassCodePage();
+        if (!requestedForPermission) {
+            initialiseControllers();
+            showPassCodePage();
+        }
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
         mAppNavigationController.destroy();
         mServiceController.destroy();
         mAppNavigationController = null;
         mServiceController = null;
     }
-
 
     private void initialiseControllers() {
         mAppNavigationController = new AppNavigationController(this);
@@ -72,7 +80,38 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
      */
     @Override
     public void showContactsPage() {
-        showDialogFragment(AppNavigationEnum.CONTACTS.getFragmentTag(), null);
+        if (userHasPermission(Manifest.permission.READ_CONTACTS)) {
+            showDialogFragment(AppNavigationEnum.CONTACTS.getFragmentTag(), null);
+        } else {
+            requestPermission(Manifest.permission.READ_CONTACTS, R.string.read_permission_message);
+        }
+    }
+
+    private void requestPermission(String permission, int messageRid) {
+        requestedForPermission = true;
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+            showInformation(messageRid);
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{permission}, PERMISSION_READ_CONTACT_REQUEST_CODE);
+        }
+    }
+
+    private boolean userHasPermission(String permission) {
+        return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        requestedForPermission = false;
+        switch (requestCode) {
+            case PERMISSION_READ_CONTACT_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    showDialogFragment(AppNavigationEnum.CONTACTS.getFragmentTag(), null);
+                } else {
+                    showInformation(R.string.read_permission_message);
+                }
+                break;
+        }
     }
 
     @Override
