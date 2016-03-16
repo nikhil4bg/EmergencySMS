@@ -17,7 +17,7 @@ import com.praxisgs.emergencysms.controllers.SnackBarControllerInterface;
 import com.praxisgs.emergencysms.utils.SnackBarManager;
 
 
-public abstract class BaseActivity extends AppCompatActivity implements SnackBarControllerInterface{
+public abstract class BaseActivity extends AppCompatActivity implements SnackBarControllerInterface {
 
     final String TAG = BaseActivity.class.getName();
     private SnackBarManager mSnackBarManager;
@@ -65,13 +65,13 @@ public abstract class BaseActivity extends AppCompatActivity implements SnackBar
 
 
     @Override
-    public void showInformation(int messageResId, String... parameters){
-        mSnackBarManager.showInformationMessage(messageResId,this,parameters);
+    public void showInformation(int messageResId, String... parameters) {
+        mSnackBarManager.showInformationMessage(messageResId, this, parameters);
     }
 
     @Override
-    public void showError(int messageResId, String... parameters){
-        mSnackBarManager.showErrorMessage(messageResId,this,parameters);
+    public void showError(int messageResId, String... parameters) {
+        mSnackBarManager.showErrorMessage(messageResId, this, parameters);
     }
 
 
@@ -91,11 +91,11 @@ public abstract class BaseActivity extends AppCompatActivity implements SnackBar
 
         hideKeyboard();
 
-        Log.e(TAG,"@@@@@@@@@@@@@@@ activity: "+ this);
+        Log.e(TAG, "@@@@@@@@@@@@@@@ activity: " + this);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         Fragment newInstance = Fragment.instantiate(this, fragmentTag, bundle);
-        ft.replace(R.id.fragment_container, newInstance,title);
+        ft.replace(R.id.fragment_container, newInstance, title);
         if (addToBackStack) {
             ft.addToBackStack(fragmentTag);
         }

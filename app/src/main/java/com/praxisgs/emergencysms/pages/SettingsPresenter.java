@@ -1,26 +1,22 @@
 package com.praxisgs.emergencysms.pages;
 
+import android.Manifest;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.praxisgs.emergencysms.R;
-import com.praxisgs.emergencysms.adapters.ContactCursorAdapter;
 import com.praxisgs.emergencysms.base.BasePresenter;
 import com.praxisgs.emergencysms.eventbus.AppNavigationEvents;
 import com.praxisgs.emergencysms.eventbus.EmergencySMSEventBus;
 import com.praxisgs.emergencysms.eventbus.EventDataChanged;
+import com.praxisgs.emergencysms.eventbus.PermissionEvents;
 import com.praxisgs.emergencysms.eventbus.ServiceEvents;
 import com.praxisgs.emergencysms.eventbus.SnackBarEvents;
-import com.praxisgs.emergencysms.model.ContactModel;
 import com.praxisgs.emergencysms.model.EmergencySMSModel;
 import com.praxisgs.emergencysms.model.SettingModel;
-
-import java.util.ArrayList;
+import com.praxisgs.emergencysms.utils.Constants;
 
 /**
  * Created on ${<VARIABLE_DATE>}.
@@ -103,11 +99,22 @@ public class SettingsPresenter implements BasePresenter {
     }
 
     public void chooseContactClicked() {
-        EmergencySMSEventBus.post(new AppNavigationEvents.EventShowContactPage());
+        EmergencySMSEventBus.post(new PermissionEvents.CheckPermission(Manifest.permission.READ_CONTACTS));
+        //EmergencySMSEventBus.post(new AppNavigationEvents.EventShowContactPage());
     }
+
+
 
     public void onEvent(EventDataChanged event) {
         mView.updateUI();
+    }
+
+    public void onEvent(PermissionEvents.PermissionStatus event){
+        if(event.isPermissionStatus()){
+            EmergencySMSEventBus.post(new AppNavigationEvents.EventShowContactPage());
+        }else{
+            EmergencySMSEventBus.post(new PermissionEvents.RequestPermission(Manifest.permission.READ_CONTACTS,R.string.read_permission_message, Constants.PERMISSION_READ_CONTACT_REQUEST_CODE));
+        }
     }
 
 }
