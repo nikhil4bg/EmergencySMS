@@ -4,8 +4,10 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.praxisgs.emergencysms.R;
 import com.praxisgs.emergencysms.controllers.AppNavigationController;
@@ -97,18 +99,25 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
     }
 
     private boolean userHasPermission(String permission) {
+        if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED)
+            return true;
         return false;
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        requestedForPermission = false;
+
         switch (requestCode) {
             case PERMISSION_READ_CONTACT_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    showDialogFragment(AppNavigationEnum.CONTACTS.getFragmentTag(), null);
-                } else {
-                    showInformation(R.string.read_permission_message);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            showDialogFragment(AppNavigationEnum.CONTACTS.getFragmentTag(), null);
+                            requestedForPermission = false;
+                        }
+                    }, 200);
+
                 }
                 break;
         }
