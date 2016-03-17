@@ -80,7 +80,24 @@ public class PermissionEvents {
         }
     }
 
+    public static class EventSendSMSPermissionStatusAfterRequest {
+
+        private final boolean mPermissionStatus;
+
+        public EventSendSMSPermissionStatusAfterRequest(boolean status){
+            this.mPermissionStatus = status;
+        }
+
+        public boolean getPermissionStatus() {
+            return mPermissionStatus;
+        }
+    }
+
     public static class EventReadContactPermissionGranted{}
 
     public static class EventReadContactPermissionDenied{}
+
+    public static class EventSendSMSPermissionGranted{}
+
+    public static class EventSendSMSPermissionDenied{}
 }

@@ -92,7 +92,7 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
     @Override
     public void showContactsPage() {
 //        if (userHasPermission(Manifest.permission.READ_CONTACTS)) {
-            showDialogFragment(AppNavigationEnum.CONTACTS.getFragmentTag(), null);
+        showDialogFragment(AppNavigationEnum.CONTACTS.getFragmentTag(), null);
 //        } else {
 //            requestPermission(Manifest.permission.READ_CONTACTS, R.string.read_permission_message);
 //        }
@@ -136,17 +136,17 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
 
 
     /**
-     *
      * @param permissions
      * @return
      */
     @Override
     public HashMap<String, Boolean> checkForUserPermission(String[] permissions) {
-        HashMap<String,Boolean> results  = new HashMap();
-        for(String permission:permissions){
-            if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED){
-                results.put(permission,true);}else{
-                results.put(permission,false);
+        HashMap<String, Boolean> results = new HashMap();
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED) {
+                results.put(permission, true);
+            } else {
+                results.put(permission, false);
             }
         }
         return results;
@@ -158,7 +158,7 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
      * @param permission
      */
     @Override
-    public void requestUserPermission(String permission, int messageRid,int requestCode) {
+    public void requestUserPermission(String permission, int messageRid, int requestCode) {
         requestedForPermission = true;
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
             showInformation(messageRid);
@@ -176,7 +176,7 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            PermissionEvents.EventReadContactsPermissionStatusAfterRequest resultEvent= new PermissionEvents.EventReadContactsPermissionStatusAfterRequest(true);
+                            PermissionEvents.EventReadContactsPermissionStatusAfterRequest resultEvent = new PermissionEvents.EventReadContactsPermissionStatusAfterRequest(true);
                             EmergencySMSEventBus.post(resultEvent);
                             requestedForPermission = false;
                         }
@@ -185,7 +185,28 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            PermissionEvents.EventReadContactsPermissionStatusAfterRequest resultEvent= new PermissionEvents.EventReadContactsPermissionStatusAfterRequest(false);
+                            PermissionEvents.EventReadContactsPermissionStatusAfterRequest resultEvent = new PermissionEvents.EventReadContactsPermissionStatusAfterRequest(false);
+                            EmergencySMSEventBus.post(resultEvent);
+                            requestedForPermission = false;
+                        }
+                    }, 200);
+                }
+                break;
+            case Constants.PERMISSION_SEND_SMS_AND_PREVENT_POWER_KEY_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            PermissionEvents.EventSendSMSPermissionStatusAfterRequest resultEvent = new PermissionEvents.EventSendSMSPermissionStatusAfterRequest(true);
+                            EmergencySMSEventBus.post(resultEvent);
+                            requestedForPermission = false;
+                        }
+                    }, 200);
+                } else {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            PermissionEvents.EventSendSMSPermissionStatusAfterRequest resultEvent = new PermissionEvents.EventSendSMSPermissionStatusAfterRequest(false);
                             EmergencySMSEventBus.post(resultEvent);
                             requestedForPermission = false;
                         }

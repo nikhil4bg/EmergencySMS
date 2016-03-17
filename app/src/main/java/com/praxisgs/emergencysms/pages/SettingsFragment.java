@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -51,6 +52,14 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
         mLocationEnabledCheckBox = (CheckBox) view.findViewById(R.id.include_location_checkBox);
 
         mServiceEnabledCheckBox = (CheckBox) view.findViewById(R.id.start_service_checkBox);
+        mServiceEnabledCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    mPresenter.startServiceChecked();
+                }
+            }
+        });
         mMessageEditText = (EditText) view.findViewById(R.id.enter_message_editText);
 
 

@@ -22,6 +22,7 @@
     <string name="help">Help</string>
     <string name="about">About</string>
     <string name="read_permission_message">Read permissions for your contacts is required to choose a contact. Please Change the app permissions.</string>
+    <string name="send_sms_permission_message">Send SMS permissions is required to send message. Please Change the app permissions.</string>
 
     <!-- Error Messages -->
 </resources>

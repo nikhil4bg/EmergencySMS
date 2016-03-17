@@ -35,6 +35,14 @@ public class PermissionController {
         }
     }
 
+    public void onEvent(PermissionEvents.EventSendSMSPermissionStatusAfterRequest event){
+        if (event.getPermissionStatus()) {
+            EmergencySMSEventBus.post(new PermissionEvents.EventSendSMSPermissionGranted());
+        } else {
+            EmergencySMSEventBus.post(new PermissionEvents.EventSendSMSPermissionDenied());
+        }
+    }
+
     public void onEvent(PermissionEvents.EventRequestPermission event) {
         String requestedPermission = event.getPermission();
         mImplementer.requestUserPermission(requestedPermission, event.getMessageId(), event.getRequestCode());
