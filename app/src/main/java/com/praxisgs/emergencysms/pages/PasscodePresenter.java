@@ -37,6 +37,7 @@ public class PasscodePresenter implements BasePresenter {
     }
 
     public void passCodeEnterOKBtnClicked(String passcode) {
+        EmergencySMSEventBus.post(new AppNavigationEvents.EventHideKeyboard());
         PassCodeModel passCodeModel = EmergencySMSModel.getInstance().getPassCodeModel();
         if (passCodeModel != null && passCodeModel.getPassCode() != null && !passCodeModel.getPassCode().isEmpty()) {
             String storedPasscode = passCodeModel.getPassCode();
@@ -51,6 +52,7 @@ public class PasscodePresenter implements BasePresenter {
     }
 
     public void createPassCodeBtnClicked(String createPassCode, String recreatePassCode) {
+        EmergencySMSEventBus.post(new AppNavigationEvents.EventHideKeyboard());
         if (createPassCode.equals(recreatePassCode)) {
             PassCodeModel passCodeModel = new PassCodeModel();
             passCodeModel.setPassCode(createPassCode);

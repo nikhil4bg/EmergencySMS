@@ -75,7 +75,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SnackBar
     }
 
 
-    private void hideKeyboard() {
+    public void hideKeyboard() {
         try {
             InputMethodManager im = (InputMethodManager) BaseActivity.this.getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             if (im != null) {

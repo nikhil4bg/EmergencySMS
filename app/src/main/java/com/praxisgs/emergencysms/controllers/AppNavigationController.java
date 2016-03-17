@@ -43,6 +43,10 @@ public class AppNavigationController {
         mImplementer.showAboutPage();
     }
 
+    public void onEvent( AppNavigationEvents.EventHideKeyboard event){
+        mImplementer.hideKeyboard();
+    }
+
     public void destroy() {
         mImplementer = null;
         EmergencySMSEventBus.unregister(this);

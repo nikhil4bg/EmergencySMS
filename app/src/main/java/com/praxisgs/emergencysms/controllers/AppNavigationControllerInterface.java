@@ -38,4 +38,9 @@ public interface AppNavigationControllerInterface {
      */
 
     void showAboutPage();
+
+    /**
+     * Hide Keyboard
+     */
+    void hideKeyboard();
 }
