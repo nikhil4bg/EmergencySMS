@@ -18,6 +18,10 @@ import com.praxisgs.emergencysms.model.EmergencySMSModel;
 import com.praxisgs.emergencysms.model.SettingModel;
 import com.praxisgs.emergencysms.utils.Constants;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+
 /**
  * Created on ${<VARIABLE_DATE>}.
  */
@@ -38,9 +42,9 @@ public class SettingsPresenter implements BasePresenter {
 
     public void saveSettings(boolean locationEnabled, boolean serviceEnabled, String message) {
         SettingModel settingModel = EmergencySMSModel.getInstance().getSettingModel();
-        if(settingModel == null){
+        if (settingModel == null) {
             EmergencySMSEventBus.post(new SnackBarEvents.EventInformation(R.string.please_select_contact));
-        }else{
+        } else {
             settingModel.setLocationIncluded(locationEnabled);
             settingModel.setServiceEnabled(serviceEnabled);
             settingModel.setMessage(message);
@@ -52,7 +56,7 @@ public class SettingsPresenter implements BasePresenter {
             } else {
                 EmergencySMSEventBus.post(new ServiceEvents.EventStopEmergencySMSService());
             }
-             EmergencySMSEventBus.post(new SnackBarEvents.EventInformation(R.string.saved));
+            EmergencySMSEventBus.post(new SnackBarEvents.EventInformation(R.string.saved));
         }
     }
 
@@ -99,22 +103,43 @@ public class SettingsPresenter implements BasePresenter {
     }
 
     public void chooseContactClicked() {
-        EmergencySMSEventBus.post(new PermissionEvents.CheckPermission(Manifest.permission.READ_CONTACTS));
-        //EmergencySMSEventBus.post(new AppNavigationEvents.EventShowContactPage());
+        EmergencySMSEventBus.post(new PermissionEvents.EventCheckPermission(new String[]{Manifest.permission.READ_CONTACTS}));
     }
-
 
 
     public void onEvent(EventDataChanged event) {
         mView.updateUI();
     }
 
-    public void onEvent(PermissionEvents.PermissionStatus event){
-        if(event.isPermissionStatus()){
-            EmergencySMSEventBus.post(new AppNavigationEvents.EventShowContactPage());
-        }else{
-            EmergencySMSEventBus.post(new PermissionEvents.RequestPermission(Manifest.permission.READ_CONTACTS,R.string.read_permission_message, Constants.PERMISSION_READ_CONTACT_REQUEST_CODE));
+    public void onEvent(PermissionEvents.EventPermissionBeforeRequestResults event) {
+        HashMap<String, Boolean> permissionStatus = event.getPermissionStatus();
+        final Set<String> permissionsApplied = permissionStatus.keySet();
+        Iterator<String> permissionsAppliedIterator = permissionsApplied.iterator();
+        while (permissionsAppliedIterator.hasNext()) {
+            String tempPermission = permissionsAppliedIterator.next();
+            switch (tempPermission) {
+                case Manifest.permission.READ_CONTACTS:
+                    if (permissionStatus.get(Manifest.permission.READ_CONTACTS)) {
+                        EmergencySMSEventBus.post(new AppNavigationEvents.EventShowContactPage());
+                    } else {
+                        EmergencySMSEventBus.post(new PermissionEvents.EventRequestPermission(Manifest.permission.READ_CONTACTS, R.string.read_permission_message, Constants.PERMISSION_READ_CONTACT_REQUEST_CODE));
+                    }
+                    break;
+            }
         }
+//        if(event.isPermissionStatus()){
+//            EmergencySMSEventBus.post(new AppNavigationEvents.EventShowContactPage());
+//        }else{
+//            EmergencySMSEventBus.post(new PermissionEvents.RequestPermission(Manifest.permission.READ_CONTACTS,R.string.read_permission_message, Constants.PERMISSION_READ_CONTACT_REQUEST_CODE));
+//        }
+    }
+
+    public void onEvent(PermissionEvents.EventReadContactPermissionGranted event){
+        EmergencySMSEventBus.post(new AppNavigationEvents.EventShowContactPage());
+    }
+
+    public void onEvent(PermissionEvents.EventReadContactPermissionDenied event){
+        EmergencySMSEventBus.post(new SnackBarEvents.EventInformation(R.string.read_permission_message));
     }
 
 }

@@ -1,15 +1,17 @@
 package com.praxisgs.emergencysms.controllers;
 
+import java.util.HashMap;
+
 /**
  * Created on 04/03/2016.
  */
 public interface PermissionControllerInterface {
 
     /**
-     * @param permission
-     * @return true if permission granted
+     * @param permissions
+     * @return Hash map of the permissions check for each persmission asked
      */
-    boolean checkForUserPermission(String permission);
+    HashMap<String,Boolean> checkForUserPermission(String[] permissions);
 
     /**
      * request for permission

@@ -1,6 +1,5 @@
 package com.praxisgs.emergencysms.base;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
-import com.praxisgs.emergencysms.R;
 import com.praxisgs.emergencysms.controllers.AppNavigationController;
 import com.praxisgs.emergencysms.controllers.AppNavigationControllerInterface;
 import com.praxisgs.emergencysms.controllers.PermissionController;
@@ -21,6 +19,8 @@ import com.praxisgs.emergencysms.eventbus.PermissionEvents;
 import com.praxisgs.emergencysms.services.EmergencySMSService;
 import com.praxisgs.emergencysms.utils.AppNavigationEnum;
 import com.praxisgs.emergencysms.utils.Constants;
+
+import java.util.HashMap;
 
 public class EmergencySMSActivity extends BaseActivity implements AppNavigationControllerInterface, ServiceControllerInterface, PermissionControllerInterface {
 
@@ -136,14 +136,20 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
 
 
     /**
-     * @param permission
-     * @return true if permission granted
+     *
+     * @param permissions
+     * @return
      */
     @Override
-    public boolean checkForUserPermission(String permission) {
-        if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED)
-            return true;
-        return false;
+    public HashMap<String, Boolean> checkForUserPermission(String[] permissions) {
+        HashMap<String,Boolean> results  = new HashMap();
+        for(String permission:permissions){
+            if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED){
+                results.put(permission,true);}else{
+                results.put(permission,false);
+            }
+        }
+        return results;
     }
 
     /**
@@ -170,16 +176,20 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            PermissionEvents.PermissionStatus resultEvent = new PermissionEvents.PermissionStatus();
-                            resultEvent.setPermissionStatus(true);
-                            resultEvent.setPermissionRequested(Manifest.permission.READ_CONTACTS);
+                            PermissionEvents.EventReadContactsPermissionStatusAfterRequest resultEvent= new PermissionEvents.EventReadContactsPermissionStatusAfterRequest(true);
                             EmergencySMSEventBus.post(resultEvent);
-//                            showContactsPage();
                             requestedForPermission = false;
                         }
                     }, 200);
                 } else {
-                    requestedForPermission = false;
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            PermissionEvents.EventReadContactsPermissionStatusAfterRequest resultEvent= new PermissionEvents.EventReadContactsPermissionStatusAfterRequest(false);
+                            EmergencySMSEventBus.post(resultEvent);
+                            requestedForPermission = false;
+                        }
+                    }, 200);
                 }
                 break;
         }

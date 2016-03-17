@@ -2,51 +2,66 @@ package com.praxisgs.emergencysms.eventbus;
 
 import com.praxisgs.emergencysms.utils.Constants;
 
+import java.util.HashMap;
+
 /**
  * Created on 16/03/2016.
  */
 public class PermissionEvents {
 
-    public static class CheckPermission {
-        private final String mPermission;
+    public static class EventCheckPermission {
+        private final String[] mPermission;
 
-        public CheckPermission(String permission) {
+        public EventCheckPermission(String[] permission) {
             this.mPermission = permission;
         }
 
-        public String getPermission() {
+        public String[] getPermission() {
             return mPermission;
         }
     }
 
-    public static class PermissionStatus {
-        private boolean mPermissionStatus;
-        private String mPermissionRequested;
+    public static class EventPermissionBeforeRequestResults {
+        private HashMap<String,Boolean> mPermissionStatus;
+//        private String mPermissionRequested;
 
-        public boolean isPermissionStatus() {
+        public HashMap<String,Boolean> getPermissionStatus() {
             return mPermissionStatus;
         }
 
-        public void setPermissionStatus(boolean mPermissionStatus) {
+        public void setPermissionStatus(HashMap<String,Boolean> mPermissionStatus) {
             this.mPermissionStatus = mPermissionStatus;
         }
 
-        public void setPermissionRequested(String permissionRequested) {
-            this.mPermissionRequested = permissionRequested;
-        }
-
-        public String getPermissionRequested() {
-            return mPermissionRequested;
-        }
+//        public void setPermissionRequested(String permissionRequested) {
+//            this.mPermissionRequested = permissionRequested;
+//        }
+//
+//        public String getPermissionRequested() {
+//            return mPermissionRequested;
+//        }
 
     }
 
-    public static class RequestPermission {
+    public static class EventReadContactsPermissionStatusAfterRequest {
+
+        private final boolean mPermissionStatus;
+
+        public EventReadContactsPermissionStatusAfterRequest(boolean status){
+            this.mPermissionStatus = status;
+        }
+
+        public boolean getPermissionStatus() {
+            return mPermissionStatus;
+        }
+    }
+
+    public static class EventRequestPermission {
         private final String mPermission;
         private final int mMessageId;
         private final int mRequestCode;
 
-        public RequestPermission(String permission, int messageId, int requestCode) {
+        public EventRequestPermission(String permission, int messageId, int requestCode) {
             this.mPermission = permission;
             this.mMessageId = messageId;
             this.mRequestCode = requestCode;
@@ -64,4 +79,8 @@ public class PermissionEvents {
             return mRequestCode;
         }
     }
+
+    public static class EventReadContactPermissionGranted{}
+
+    public static class EventReadContactPermissionDenied{}
 }
