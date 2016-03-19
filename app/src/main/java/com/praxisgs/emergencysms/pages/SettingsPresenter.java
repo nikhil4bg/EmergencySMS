@@ -60,6 +60,7 @@ public class SettingsPresenter implements BasePresenter {
         }
     }
 
+
     public interface ViewInterface {
         Context getAppContext();
 
@@ -109,6 +110,22 @@ public class SettingsPresenter implements BasePresenter {
         EmergencySMSEventBus.post(new PermissionEvents.EventCheckPermission(new String[]{Manifest.permission.SEND_SMS}));
     }
 
+    public void changePasscodeClicked() {
+        //TODO
+    }
+
+    public void resetClicked() {
+        //TODO
+    }
+
+    public void helpClicked() {
+        EmergencySMSEventBus.post(new AppNavigationEvents.EventShowHelpPage());
+    }
+
+    public void aboutClicked() {
+        EmergencySMSEventBus.post(new AppNavigationEvents.EventShowAboutPage());
+    }
+
 
     public void onEvent(EventDataChanged event) {
         mView.updateUI();
@@ -142,19 +159,19 @@ public class SettingsPresenter implements BasePresenter {
 //        }
     }
 
-    public void onEvent(PermissionEvents.EventReadContactPermissionGranted event){
+    public void onEvent(PermissionEvents.EventReadContactPermissionGranted event) {
         EmergencySMSEventBus.post(new AppNavigationEvents.EventShowContactPage());
     }
 
-    public void onEvent(PermissionEvents.EventReadContactPermissionDenied event){
+    public void onEvent(PermissionEvents.EventReadContactPermissionDenied event) {
         EmergencySMSEventBus.post(new SnackBarEvents.EventInformation(R.string.read_permission_message));
     }
 
-    public void onEvent(PermissionEvents.EventSendSMSPermissionGranted event){
+    public void onEvent(PermissionEvents.EventSendSMSPermissionGranted event) {
         //TODO
     }
 
-    public void onEvent(PermissionEvents.EventSendSMSPermissionDenied event){
+    public void onEvent(PermissionEvents.EventSendSMSPermissionDenied event) {
         EmergencySMSEventBus.post(new SnackBarEvents.EventInformation(R.string.send_sms_permission_message));
     }
 

@@ -136,9 +136,9 @@ public class PasscodeFragment extends BaseFragment<PasscodePresenter> implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.passcode_help:
-                mPresenter.helpClicked();
-                return true;
+//            case R.id.passcode_help:
+//                mPresenter.helpClicked();
+//                return true;
             case R.id.passcode_about:
                 mPresenter.aboutClicked();
                 return true;

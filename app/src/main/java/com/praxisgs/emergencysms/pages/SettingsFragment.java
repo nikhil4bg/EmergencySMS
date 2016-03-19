@@ -5,6 +5,9 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
@@ -42,6 +45,7 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_settings, null);
         bindView(view);
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -55,7 +59,7 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
         mServiceEnabledCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     mPresenter.startServiceChecked();
                 }
             }
@@ -95,6 +99,31 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
             mLocationEnabledCheckBox.setChecked(settingModel.isLocationIncluded());
             mServiceEnabledCheckBox.setChecked(settingModel.isServiceEnabled());
             mMessageEditText.setText(settingModel.getMessage());
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.setttings_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings_change_passcode:
+                mPresenter.changePasscodeClicked();
+                return true;
+            case R.id.settings_reset:
+                mPresenter.resetClicked();
+                return true;
+            case R.id.settings_help:
+                mPresenter.helpClicked();
+                return true;
+            case R.id.settings_about:
+                mPresenter.aboutClicked();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
