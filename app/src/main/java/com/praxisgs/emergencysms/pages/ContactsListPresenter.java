@@ -2,6 +2,7 @@ package com.praxisgs.emergencysms.pages;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -36,6 +37,9 @@ public class ContactsListPresenter implements BasePresenter, LoaderManager.Loade
     String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "=1";
     private final int mLoaderID = 1;
 
+    private String mCursorFilter;
+    private ContactCursorAdapter mContactCursorAdapter;
+
     private ContactsListPresenter(ViewInterface viewInterface) {
         this.mView = viewInterface;
     }
@@ -48,7 +52,10 @@ public class ContactsListPresenter implements BasePresenter, LoaderManager.Loade
         mView.getActivity().getSupportLoaderManager().initLoader(mLoaderID, null, this);
     }
 
-
+    public void searchTextChangedTo(String searchString) {
+        mCursorFilter = searchString.isEmpty()?null:searchString;
+        mView.getActivity().getSupportLoaderManager().restartLoader(mLoaderID,null,this);
+    }
 
 
     public interface ViewInterface {
@@ -97,7 +104,14 @@ public class ContactsListPresenter implements BasePresenter, LoaderManager.Loade
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(getAppContext(), ContactsContract.Contacts.CONTENT_URI, projection, selection, null, Build.VERSION.SDK_INT
+        Uri baseUri;
+        if (mCursorFilter != null) {
+            baseUri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_FILTER_URI,
+                    Uri.encode(mCursorFilter));
+        } else {
+            baseUri = ContactsContract.Contacts.CONTENT_URI;
+        }
+        return new CursorLoader(getAppContext(), baseUri, projection, selection, null, Build.VERSION.SDK_INT
                 >= Build.VERSION_CODES.HONEYCOMB ?
                 ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
                 ContactsContract.Contacts.DISPLAY_NAME);
@@ -106,9 +120,10 @@ public class ContactsListPresenter implements BasePresenter, LoaderManager.Loade
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         cursor.moveToFirst();
-        ContactCursorAdapter contactCursorAdapter = new ContactCursorAdapter(getAppContext(),cursor,0);
+        mContactCursorAdapter = new ContactCursorAdapter(getAppContext(),cursor,0);
+
        // ContactsAdapter adapter = new ContactsAdapter(getAppContext(), cursor);
-        mView.contactLoadingFinished(contactCursorAdapter);
+        mView.contactLoadingFinished(mContactCursorAdapter);
 //
 //
 //        while (!cursor.isAfterLast()) {
@@ -119,7 +134,7 @@ public class ContactsListPresenter implements BasePresenter, LoaderManager.Loade
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
+        mContactCursorAdapter.swapCursor(null);
     }
 
     public void contactSelected(HashMap<String, String> contactDetails) {

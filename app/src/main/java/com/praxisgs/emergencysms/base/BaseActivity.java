@@ -93,7 +93,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SnackBar
 
         Log.e(TAG, "@@@@@@@@@@@@@@@ activity: " + this);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         Fragment newInstance = Fragment.instantiate(this, fragmentTag, bundle);
         ft.replace(R.id.fragment_container, newInstance, title);
         if (addToBackStack) {

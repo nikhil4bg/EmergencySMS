@@ -6,10 +6,13 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.praxisgs.emergencysms.R;
@@ -26,6 +29,7 @@ public class ContactsListDialog extends BaseDialogFragment<ContactsListPresenter
     public static final String TAG = ContactsListDialog.class.getName();
 
     private ListView mContactsListview;
+    private EditText mSearchEditText;
 
 
     @Override
@@ -58,7 +62,24 @@ public class ContactsListDialog extends BaseDialogFragment<ContactsListPresenter
                 Cursor cursor = cursorAdaptor.getCursor();
                 cursor.moveToPosition(position);
                 HashMap<String, String> contactDetails = cursorAdaptor.getContactDetails(cursor);
-                    mPresenter.contactSelected(contactDetails);
+                mPresenter.contactSelected(contactDetails);
+            }
+        });
+        mSearchEditText = (EditText) view.findViewById(R.id.contacts_search_editText);
+        mSearchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mPresenter.searchTextChangedTo(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
