@@ -24,4 +24,6 @@ public class AppNavigationEvents {
     }
 
     public static class EventHideKeyboard{}
+
+    public static class EventShowResetPage{}
 }

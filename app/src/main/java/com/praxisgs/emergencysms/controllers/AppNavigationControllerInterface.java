@@ -40,6 +40,11 @@ public interface AppNavigationControllerInterface {
     void showAboutPage();
 
     /**
+     *
+     */
+    void showResetPage();
+
+    /**
      * Hide Keyboard
      */
     void hideKeyboard();

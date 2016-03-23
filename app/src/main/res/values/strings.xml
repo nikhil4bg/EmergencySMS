@@ -25,6 +25,8 @@
     <string name="send_sms_permission_message">Send SMS permissions is required to send message. Please Change the app permissions.</string>
     <string name="change_passcode">Change Passcode</string>
     <string name="reset_settings">Reset settings</string>
+    <string name="reset_message">This will clear all your settings including selected contact and stopping the service.\nWould you like to reset?</string>
+    <string name="reset_done">Reset done.</string>
 
     <!-- Error Messages -->
 </resources>

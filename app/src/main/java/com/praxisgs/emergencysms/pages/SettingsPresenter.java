@@ -42,9 +42,9 @@ public class SettingsPresenter implements BasePresenter {
 
     public void saveSettings(boolean locationEnabled, boolean serviceEnabled, String message) {
         SettingModel settingModel = EmergencySMSModel.getInstance().getSettingModel();
-        if (settingModel == null) {
+        if (settingModel == null && serviceEnabled) {
             EmergencySMSEventBus.post(new SnackBarEvents.EventInformation(R.string.please_select_contact));
-        } else {
+        } else if(settingModel!=null){
             settingModel.setLocationIncluded(locationEnabled);
             settingModel.setServiceEnabled(serviceEnabled);
             settingModel.setMessage(message);
@@ -110,12 +110,12 @@ public class SettingsPresenter implements BasePresenter {
         EmergencySMSEventBus.post(new PermissionEvents.EventCheckPermission(new String[]{Manifest.permission.SEND_SMS}));
     }
 
-    public void changePasscodeClicked() {
+    public void changePassCodeClicked() {
         //TODO
     }
 
     public void resetClicked() {
-        //TODO
+        EmergencySMSEventBus.post(new AppNavigationEvents.EventShowResetPage());
     }
 
     public void helpClicked() {
@@ -148,6 +148,7 @@ public class SettingsPresenter implements BasePresenter {
                 case Manifest.permission.SEND_SMS:
                     if (!permissionStatus.get(Manifest.permission.SEND_SMS)) {
                         EmergencySMSEventBus.post(new PermissionEvents.EventRequestPermission(Manifest.permission.SEND_SMS, R.string.send_sms_permission_message, Constants.PERMISSION_SEND_SMS_AND_PREVENT_POWER_KEY_CODE));
+                        mView.updateUI();
                     }
                     break;
             }

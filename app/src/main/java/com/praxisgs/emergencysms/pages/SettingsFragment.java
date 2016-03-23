@@ -99,6 +99,11 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
             mLocationEnabledCheckBox.setChecked(settingModel.isLocationIncluded());
             mServiceEnabledCheckBox.setChecked(settingModel.isServiceEnabled());
             mMessageEditText.setText(settingModel.getMessage());
+        }else{
+            mContactText.setText("");
+            mLocationEnabledCheckBox.setChecked(false);
+            mServiceEnabledCheckBox.setChecked(false);
+            mMessageEditText.setText("");
         }
     }
 
@@ -111,7 +116,7 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings_change_passcode:
-                mPresenter.changePasscodeClicked();
+                mPresenter.changePassCodeClicked();
                 return true;
             case R.id.settings_reset:
                 mPresenter.resetClicked();

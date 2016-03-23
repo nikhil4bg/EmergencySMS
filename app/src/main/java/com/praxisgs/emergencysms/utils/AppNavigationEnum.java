@@ -5,6 +5,7 @@ import com.praxisgs.emergencysms.pages.AboutDialog;
 import com.praxisgs.emergencysms.pages.ContactsListDialog;
 import com.praxisgs.emergencysms.pages.HelpFragment;
 import com.praxisgs.emergencysms.pages.PasscodeFragment;
+import com.praxisgs.emergencysms.pages.ResetComfirmationDialog;
 import com.praxisgs.emergencysms.pages.SettingsFragment;
 
 /**
@@ -12,6 +13,7 @@ import com.praxisgs.emergencysms.pages.SettingsFragment;
  */
 public enum AppNavigationEnum {
 
+    RESET(ResetComfirmationDialog.TAG, "Reset"),
     HELP(HelpFragment.TAG, "Help"),
     ABOUT(AboutDialog.TAG, "About"),
     SETTINGS(SettingsFragment.TAG, "Settings"),
