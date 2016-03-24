@@ -40,9 +40,15 @@ public interface AppNavigationControllerInterface {
     void showAboutPage();
 
     /**
-     *
+     * Show Reset Page
      */
     void showResetPage();
+
+    /**
+     * Show Change Passcode Page
+     */
+
+    void showChangePassCodePage();
 
     /**
      * Hide Keyboard

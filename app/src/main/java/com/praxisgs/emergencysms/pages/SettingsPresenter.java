@@ -111,7 +111,7 @@ public class SettingsPresenter implements BasePresenter {
     }
 
     public void changePassCodeClicked() {
-        //TODO
+        EmergencySMSEventBus.post(new AppNavigationEvents.EventShowChangePassCodePage());
     }
 
     public void resetClicked() {

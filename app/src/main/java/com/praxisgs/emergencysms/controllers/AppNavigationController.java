@@ -51,6 +51,10 @@ public class AppNavigationController {
         mImplementer.showResetPage();
     }
 
+    public void onEvent(AppNavigationEvents.EventShowChangePassCodePage event){
+        mImplementer.showChangePassCodePage();
+    }
+
     public void destroy() {
         mImplementer = null;
         EmergencySMSEventBus.unregister(this);

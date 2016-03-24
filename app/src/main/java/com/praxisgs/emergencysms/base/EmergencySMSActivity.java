@@ -123,6 +123,11 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
         showDialogFragment(AppNavigationEnum.RESET.getFragmentTag(), null);
     }
 
+    @Override
+    public void showChangePassCodePage() {
+        showDialogFragment(AppNavigationEnum.CHANGE_PASSCODE.getFragmentTag(), null);
+    }
+
     /**
      * Start Emergency service
      */

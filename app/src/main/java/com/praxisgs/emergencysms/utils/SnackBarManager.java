@@ -59,7 +59,7 @@ public class SnackBarManager {
                 snackbar.getView().setBackgroundColor(activity.getResources().getColor(R.color.OrangeRed));
                 break;
             case INFO:
-                snackbar.getView().setBackgroundColor(activity.getResources().getColor(R.color.ForestGreen));
+                snackbar.getView().setBackgroundColor(activity.getResources().getColor(R.color.LightSeaGreen));
                 break;
         }
         snackbar.show();
