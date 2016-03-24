@@ -45,7 +45,7 @@ public class SnackBarManager {
 
         String message = activity.getResources().getString(messageResId,parameters);
 
-        CoordinatorLayout coordinatorLayout = getBlockedView(activity);
+        RelativeLayout coordinatorLayout = getBlockedView(activity);
 
         Snackbar snackbar = Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG);
 
@@ -65,15 +65,15 @@ public class SnackBarManager {
         snackbar.show();
     }
 
-    private CoordinatorLayout getBlockedView(FragmentActivity activity) {
+    private RelativeLayout getBlockedView(FragmentActivity activity) {
         Fragment dialogFragment = AppUtils.getInstance().getDialogFragment(activity);
 
-        CoordinatorLayout coordinatorLayout;
+        RelativeLayout coordinatorLayout;
         if (dialogFragment != null && dialogFragment.isVisible()) {
-            coordinatorLayout = (CoordinatorLayout)dialogFragment.getView().findViewById(R.id.snackbarPosition);
+            coordinatorLayout = (RelativeLayout)dialogFragment.getView().findViewById(R.id.snackbarPosition);
             coordinatorLayout.setLayoutParams(new RelativeLayout.LayoutParams(dialogFragment.getView().getMeasuredWidth(), dialogFragment.getView().getMeasuredHeight()));
         } else {
-            coordinatorLayout = (CoordinatorLayout)activity.findViewById(R.id.snackbarPosition);
+            coordinatorLayout = (RelativeLayout)activity.findViewById(R.id.snackbarPosition);
         }
 
         return coordinatorLayout;
