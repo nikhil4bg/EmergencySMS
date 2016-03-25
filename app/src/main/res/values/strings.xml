@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EmergencySMS</string>
+    <string name="app_name">MayDay SMS</string>
     <string name="enter_passcode">Enter your Passcode</string>
     <string name="reenter_passcode">Re-enter Passcode</string>
     <string name="create_passcode">Create new Passcode</string>
