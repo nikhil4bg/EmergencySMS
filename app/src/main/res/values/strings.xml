@@ -27,10 +27,12 @@
     <string name="reset_settings">Reset settings</string>
     <string name="reset_message">This will clear all your settings including selected contact and stopping the service.\nWould you like to reset?</string>
     <string name="reset_done">Reset done.</string>
+    <string name="passcode_changed_confirmation">Pass code changed.</string>
 
     <!-- Error Messages -->
     <string name="old_passcode_empty_error">Please enter your Old Pass Code.</string>
     <string name="new_passcode_empty_error">Please enter your New Pass Code.</string>
     <string name="new_old_passcode_same_error">Please enter different New Pass Code.</string>
     <string name="new_passcode_missmatch_error">New Pass Code do not match.</string>
+    <string name="old_passcode_missmatch_error">Old Pass Code is not correct.</string>
 </resources>

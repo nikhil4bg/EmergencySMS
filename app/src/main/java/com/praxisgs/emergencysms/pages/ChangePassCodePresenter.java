@@ -12,6 +12,8 @@ import com.praxisgs.emergencysms.R;
 import com.praxisgs.emergencysms.base.BasePresenter;
 import com.praxisgs.emergencysms.eventbus.EmergencySMSEventBus;
 import com.praxisgs.emergencysms.eventbus.SnackBarEvents;
+import com.praxisgs.emergencysms.model.EmergencySMSModel;
+import com.praxisgs.emergencysms.model.PassCodeModel;
 
 /**
  * Created on ${<VARIABLE_DATE>}.
@@ -27,22 +29,12 @@ public class ChangePassCodePresenter implements BasePresenter {
         return new ChangePassCodePresenter(viewInterface);
     }
 
-    public void changePassCodeClicked(String oldPassCode, String newPassCode, String confirmNewPassCode) {
-        //Check if any of the fields are empty
-        if(oldPassCode.isEmpty()){
-            EmergencySMSEventBus.post(new SnackBarEvents.EventError(R.string.old_passcode_empty_error));
-        }else if(newPassCode.isEmpty() || confirmNewPassCode.isEmpty()){
-            EmergencySMSEventBus.post(new SnackBarEvents.EventError(R.string.new_passcode_empty_error));
-        }
-        //check if old pass code matches the stored pass code
-        //check if old and new pass code are the same
-        //check if new and confirm pass code are the same
-    }
-
     public interface ViewInterface {
         Context getAppContext();
 
         FragmentActivity getActivity();
+
+        void dismiss();
     }
 
     @Override
@@ -79,22 +71,29 @@ public class ChangePassCodePresenter implements BasePresenter {
         return mView.getAppContext();
     }
 
-    public String getApplicationName() {
-        return getAppContext().getResources().getString(R.string.app_name);
-    }
-
-    public String getVersionNumber() {
-        PackageInfo pInfo;
-        String versionName;
-        try {
-            pInfo = getAppContext().getPackageManager()
-                    .getPackageInfo((getAppContext()).getPackageName(), 0);
-            versionName = pInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            versionName = "1.00";
-            e.printStackTrace();
-        }
-        return versionName;
+    public void changePassCodeClicked(String oldPassCode, String newPassCode, String confirmNewPassCode) {
+        //Check if any of the fields are empty
+        if (oldPassCode.isEmpty()) {
+            EmergencySMSEventBus.post(new SnackBarEvents.EventError(R.string.old_passcode_empty_error));
+        } else if (newPassCode.isEmpty() || confirmNewPassCode.isEmpty()) {
+            EmergencySMSEventBus.post(new SnackBarEvents.EventError(R.string.new_passcode_empty_error));
+        } else //check if old and new pass code are the same
+            if (oldPassCode.equalsIgnoreCase(newPassCode)) {
+                EmergencySMSEventBus.post(new SnackBarEvents.EventError(R.string.new_old_passcode_same_error));
+            } else //check if new and confirm pass code are the same
+                if (!newPassCode.equalsIgnoreCase(confirmNewPassCode)) {
+                    EmergencySMSEventBus.post(new SnackBarEvents.EventError(R.string.new_passcode_missmatch_error));
+                } else //check if old pass code matches the stored pass code
+                    if (EmergencySMSModel.getInstance().getPassCodeModel() != null && !EmergencySMSModel.getInstance().getPassCodeModel().getPassCode().equalsIgnoreCase(oldPassCode)) {
+                        EmergencySMSEventBus.post(new SnackBarEvents.EventError(R.string.old_passcode_missmatch_error));
+                    }else{
+                        PassCodeModel passCodeModel = new PassCodeModel();
+                        passCodeModel.setPassCode(newPassCode);
+                        EmergencySMSModel.getInstance().setPassCodeModel(passCodeModel);
+                        EmergencySMSModel.getInstance().save();
+                        mView.dismiss();
+                        EmergencySMSEventBus.post(new SnackBarEvents.EventInformation(R.string.passcode_changed_confirmation));
+                    }
     }
 
 }
