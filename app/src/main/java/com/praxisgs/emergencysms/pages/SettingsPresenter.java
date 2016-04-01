@@ -44,7 +44,7 @@ public class SettingsPresenter implements BasePresenter {
         SettingModel settingModel = EmergencySMSModel.getInstance().getSettingModel();
         if (settingModel == null && serviceEnabled) {
             EmergencySMSEventBus.post(new SnackBarEvents.EventInformation(R.string.please_select_contact));
-        } else if(settingModel!=null){
+        } else if (settingModel != null) {
             settingModel.setLocationIncluded(locationEnabled);
             settingModel.setServiceEnabled(serviceEnabled);
             settingModel.setMessage(message);
@@ -64,7 +64,7 @@ public class SettingsPresenter implements BasePresenter {
     public interface ViewInterface {
         Context getAppContext();
 
-        void updateUI();
+        void updateUI(boolean updatedMyUser);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class SettingsPresenter implements BasePresenter {
 
 
     public void onEvent(EventDataChanged event) {
-        mView.updateUI();
+        mView.updateUI(true);
     }
 
     public void onEvent(PermissionEvents.EventPermissionBeforeRequestResults event) {
@@ -148,7 +148,7 @@ public class SettingsPresenter implements BasePresenter {
                 case Manifest.permission.SEND_SMS:
                     if (!permissionStatus.get(Manifest.permission.SEND_SMS)) {
                         EmergencySMSEventBus.post(new PermissionEvents.EventRequestPermission(Manifest.permission.SEND_SMS, R.string.send_sms_permission_message, Constants.PERMISSION_SEND_SMS_AND_PREVENT_POWER_KEY_CODE));
-                        mView.updateUI();
+                        mView.updateUI(true);
                     }
                     break;
             }

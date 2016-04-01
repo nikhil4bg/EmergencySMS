@@ -34,6 +34,7 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
     private Button mSaveButton;
     private EditText mMessageEditText;
     private Button mChooseContact;
+    private boolean mUpdatedByUser = false;
 
     @Override
     protected SettingsPresenter instantiatePresenter() {
@@ -60,7 +61,9 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    mPresenter.startServiceChecked();
+                    if (mUpdatedByUser) {
+                        mPresenter.startServiceChecked();
+                    }
                 }
             }
         });
@@ -83,14 +86,16 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
             }
         });
 
-        updateUI();
+
+        updateUI(false);
 
 
     }
 
 
     @Override
-    public void updateUI() {
+    public void updateUI(boolean updatedByUser) {
+        mUpdatedByUser = updatedByUser;
         SettingModel settingModel = mPresenter.getSettings();
         if (settingModel != null) {
             if (settingModel.getContactModels() != null) {
@@ -99,7 +104,7 @@ public class SettingsFragment extends BaseFragment<SettingsPresenter> implements
             mLocationEnabledCheckBox.setChecked(settingModel.isLocationIncluded());
             mServiceEnabledCheckBox.setChecked(settingModel.isServiceEnabled());
             mMessageEditText.setText(settingModel.getMessage());
-        }else{
+        } else {
             mContactText.setText("");
             mLocationEnabledCheckBox.setChecked(false);
             mServiceEnabledCheckBox.setChecked(false);
