@@ -42,7 +42,7 @@ public class SettingsPresenter implements BasePresenter {
 
     public void saveSettings(boolean locationEnabled, boolean serviceEnabled, String message) {
         SettingModel settingModel = EmergencySMSModel.getInstance().getSettingModel();
-        if (settingModel == null && serviceEnabled) {
+        if (settingModel == null) {
             EmergencySMSEventBus.post(new SnackBarEvents.EventInformation(R.string.please_select_contact));
         } else if (settingModel != null) {
             settingModel.setLocationIncluded(locationEnabled);
@@ -51,7 +51,6 @@ public class SettingsPresenter implements BasePresenter {
             EmergencySMSModel.getInstance().setSettingModel(settingModel);
 
             if (serviceEnabled) {
-                EmergencySMSEventBus.post(new ServiceEvents.EventStopEmergencySMSService());
                 EmergencySMSEventBus.post(new ServiceEvents.EventStartEmergencySMSService());
             } else {
                 EmergencySMSEventBus.post(new ServiceEvents.EventStopEmergencySMSService());
