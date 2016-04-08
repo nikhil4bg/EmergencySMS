@@ -6,23 +6,19 @@
     android:orientation="vertical">
 
     <TextView
+        style="@style/TextMed"
         android:id="@+id/about_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Appplication name"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
-        android:textColor="@color/MidnightBlue" />
+        android:text="Appplication name"/>
 
     <TextView
         android:id="@+id/about_version_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        style="@style/TextMed"
         android:layout_margin="@dimen/fab_small_margin"
-        android:text="Version number"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
-        android:textColor="@color/MidnightBlue" />
+        android:text="Version number"/>
 
     <Button
         android:id="@+id/about_ok_btn"

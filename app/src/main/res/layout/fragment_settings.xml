@@ -54,7 +54,7 @@
         android:layout_below="@+id/include_location_checkBox"
         android:layout_marginTop="@dimen/fab_small_margin"
         android:buttonTint="@android:color/darker_gray"
-        android:text="@string/start_using_this_service" />
+        android:text="@string/start_using_the_service" />
 
     <TextView
         android:id="@+id/type_sms_textview"

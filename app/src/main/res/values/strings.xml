@@ -4,13 +4,19 @@
     <string name="reenter_passcode">Re-enter Passcode</string>
     <string name="create_passcode">Create new Passcode</string>
     <string name="include_your_location">Include Your Location</string>
-    <string name="start_using_this_service">Start Using this Service</string>
+    <string name="start_using_the_service">Start using the Service</string>
     <string name="type_in_the_contact_name">Type in the contact name</string>
     <string name="type_message_to_send">Type message to send</string>
     <string name="save">Save</string>
     <string name="choose_contact">Choose from Contacts</string>
     <string name="no_contacts">No contacts</string>
     <string name="no_mobile_number_avaialble">No mobile number available</string>
+    <string name="choose_contact_details">Choose a contact with mobile number to which you would like to receive the message.</string>
+    <string name="start_using_the_service_details">Tick the check box to start sending SMS text to selected contact.</string>
+    <string name="type_message_to_send_details">Type in the message to be sent via SMS to the selected contact.</string>
+    <string name="save_details">Saved the latest changes.</string>
+    <string name="change_passcode_details">To change your current passcode, please enter your current Pass code and new Pass code.</string>
+    <string name="reset_settings_details">Removes selected contact, stops the service and removes the saved message.</string>
 
     <!-- Information Messages -->
     <string name="please_select_contact">Please select a Contact</string>
@@ -25,7 +31,7 @@
     <string name="send_sms_permission_message">Send SMS permissions is required to send message. Please Change the app permissions.</string>
     <string name="change_passcode">Change Passcode</string>
     <string name="reset_settings">Reset settings</string>
-    <string name="reset_message">This will clear all your settings including selected contact and stopping the service.\nWould you like to reset?</string>
+    <string name="reset_message">This will clear all your settings including selected contact and stopping the service.\n\nWould you like to reset?</string>
     <string name="reset_done">Reset done.</string>
     <string name="passcode_changed_confirmation">Pass code changed.</string>
 

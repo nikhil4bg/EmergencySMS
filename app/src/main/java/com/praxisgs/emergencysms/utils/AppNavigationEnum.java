@@ -4,7 +4,7 @@ package com.praxisgs.emergencysms.utils;
 import com.praxisgs.emergencysms.pages.AboutDialog;
 import com.praxisgs.emergencysms.pages.ChangePassCodeDialog;
 import com.praxisgs.emergencysms.pages.ContactsListDialog;
-import com.praxisgs.emergencysms.pages.HelpFragment;
+import com.praxisgs.emergencysms.pages.HelpDialog;
 import com.praxisgs.emergencysms.pages.PasscodeFragment;
 import com.praxisgs.emergencysms.pages.ResetComfirmationDialog;
 import com.praxisgs.emergencysms.pages.SettingsFragment;
@@ -16,7 +16,7 @@ public enum AppNavigationEnum {
 
     CHANGE_PASSCODE(ChangePassCodeDialog.TAG,"Change PassCode"),
     RESET(ResetComfirmationDialog.TAG, "Reset"),
-    HELP(HelpFragment.TAG, "Help"),
+    HELP(HelpDialog.TAG, "Help"),
     ABOUT(AboutDialog.TAG, "About"),
     SETTINGS(SettingsFragment.TAG, "Settings"),
     PASSCODE(PasscodeFragment.TAG, "Passcode"),

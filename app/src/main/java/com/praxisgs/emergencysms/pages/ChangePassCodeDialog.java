@@ -35,7 +35,6 @@ public class ChangePassCodeDialog extends BaseDialogFragment<ChangePassCodePrese
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        setStyle(DialogFragment.STYLE_NORMAL,R.style.DialogTheme);
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.dialog_chage_passcode, null);
         bindView(view);

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/fab_large_margin"
+    android:paddingTop="@dimen/fab_large_margin"
+    android:paddingLeft="@dimen/fab_med_margin"
+    android:paddingRight="@dimen/fab_med_margin">
+
+    <Button
+        android:id="@+id/help_ok_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/fab_med_margin"
+        android:text="@android:string/ok"
+        android:layout_alignParentBottom="true"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/help_ok_btn">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextLarge"
+                android:text="@string/choose_contact"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="@dimen/fab_tiny_margin"/>
+
+            <TextView
+                style="@style/TextMed"
+                android:text="@string/choose_contact_details"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="@dimen/fab_med_margin"/>
+
+            <TextView
+                style="@style/TextLarge"
+                android:text="@string/start_using_the_service"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="@dimen/fab_tiny_margin"/>
+
+            <TextView
+                style="@style/TextMed"
+                android:text="@string/start_using_the_service_details"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="@dimen/fab_med_margin"/>
+
+            <TextView
+                style="@style/TextLarge"
+                android:text="@string/type_message_to_send"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="@dimen/fab_tiny_margin"/>
+
+            <TextView
+                style="@style/TextMed"
+                android:text="@string/type_message_to_send_details"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="@dimen/fab_med_margin"/>
+
+            <TextView
+                style="@style/TextLarge"
+                android:text="@string/save"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="@dimen/fab_tiny_margin"/>
+
+            <TextView
+                style="@style/TextMed"
+                android:text="@string/save_details"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="@dimen/fab_med_margin"/>
+
+            <TextView
+                style="@style/TextLarge"
+                android:text="@string/change_passcode"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="@dimen/fab_tiny_margin"/>
+
+            <TextView
+                style="@style/TextMed"
+                android:text="@string/change_passcode_details"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="@dimen/fab_med_margin"/>
+
+            <TextView
+                style="@style/TextLarge"
+                android:text="@string/reset_settings"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="@dimen/fab_tiny_margin"/>
+
+            <TextView
+                style="@style/TextMed"
+                android:text="@string/reset_settings_details"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="@dimen/fab_med_margin"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

@@ -6,13 +6,12 @@
     android:orientation="vertical">
 
     <TextView
+        style="@style/TextMed"
         android:id="@+id/reset_reset_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/reset_message"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
-        android:textColor="@color/MidnightBlue" />
+        android:text="@string/reset_message"/>
 
     <Button
         android:id="@+id/reset_ok_btn"
