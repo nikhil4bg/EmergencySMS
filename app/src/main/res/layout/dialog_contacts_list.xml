@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/fab_small_margin">
 
     <EditText
         android:id="@+id/contacts_search_editText"
@@ -9,7 +10,7 @@
         android:layout_width="match_parent"
         android:singleLine="true"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_med_margin"
+        android:layout_marginBottom="@dimen/fab_med_margin"
         android:hint="@android:string/search_go"/>
 
     <Button
@@ -26,22 +27,12 @@
         android:layout_below="@+id/contacts_search_editText"
         android:layout_above="@+id/contacts_cancel_btn"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/fab_med_margin"/>
+        android:layout_height="match_parent"/>
 
     <RelativeLayout
         android:id="@+id/snackbarPosition"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"/>
-
-
-
-    <!--<TextView android:id="@+id/contacts_empty_list"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-        <!--android:text="@string/no_contacts"/>-->
 
 </RelativeLayout>

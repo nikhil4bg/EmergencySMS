@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/fab_small_margin">
 
     <EditText
         android:id="@+id/change_passcode_old_passcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_small_margin"
         android:layout_gravity="center_horizontal"
         android:inputType="numberPassword"
         android:ems="10"
-        android:hint="Old PassCode"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
-        android:textColor="@color/MidnightBlue"
+        android:hint="@string/old_passcode"
+        android:layout_margin="@dimen/fab_small_margin"
+        android:textColorHint="@color/DarkGreen"
+        android:textColor="@color/SteelBlue"
         android:layout_alignParentTop="true"/>
 
     <EditText
@@ -21,26 +22,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/fab_small_margin"
         android:inputType="numberPassword"
         android:ems="10"
-        android:hint="New PassCode"
+        android:hint="@string/new_passcode"
         android:layout_below="@+id/change_passcode_old_passcode"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
-        android:textColor="@color/MidnightBlue" />
+        android:layout_margin="@dimen/fab_small_margin"
+        android:textColorHint="@color/DarkGreen"
+        android:textColor="@color/SteelBlue" />
 
     <EditText
         android:id="@+id/change_passcode_confirm_passcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:hint="Confirm New PassCode"
+        android:hint="@string/confirm_new_passcode"
         android:inputType="numberPassword"
         android:ems="10"
-        android:layout_margin="@dimen/fab_small_margin"
         android:layout_below="@+id/change_passcode_new_passcode"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
-        android:textColor="@color/MidnightBlue" />
+        android:layout_margin="@dimen/fab_small_margin"
+        android:textColorHint="@color/DarkGreen"
+        android:textColor="@color/SteelBlue"/>
 
 
     <Button
@@ -49,15 +50,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/change_passcode_confirm_passcode"
-        android:layout_margin="@dimen/fab_small_margin"
-        android:text="Change PassCode" />
+        android:layout_marginTop="@dimen/fab_med_margin"
+        android:layout_marginLeft="@dimen/fab_med_margin"
+        android:layout_marginRight="@dimen/fab_med_margin"
+        android:text="@string/change_passcode" />
 
     <Button
         android:id="@+id/change_passcode_cancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/fab_small_margin"
+        android:layout_margin="@dimen/fab_med_margin"
         android:layout_below="@+id/change_passcode_change_passcode"
         android:text="@android:string/cancel" />
 

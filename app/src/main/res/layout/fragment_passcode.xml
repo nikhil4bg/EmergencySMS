@@ -6,62 +6,70 @@
 
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/passcode_enterPassCode_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/passcode_enterPassCode_layout"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
         android:visibility="gone">
 
         <EditText
+            android:id="@+id/passcode_enterPassCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="numberPassword"
+            android:layout_marginBottom="@dimen/fab_small_margin"
             android:ems="10"
-            android:id="@+id/passcode_enterPassCode"
             android:hint="@string/enter_passcode"
-            android:textColorHint="@android:color/holo_green_dark" />
+            android:inputType="numberPassword"
+            android:textColor="@color/SteelBlue"
+            android:textColorHint="@color/DarkGreen" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/passcode_enterPassCode_okBtn"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@android:string/ok"
-            android:id="@+id/passcode_enterPassCode_okBtn"/>
+            android:layout_gravity="center_horizontal"/>
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/passcode_createPassCode_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/passcode_createPassCode_layout"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
         android:visibility="gone">
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberPassword"
-            android:ems="10"
-            android:id="@+id/passcode_createPassCode"
-            android:hint="@string/create_passcode"
-            android:textColorHint="@android:color/holo_green_dark" />
 
         <EditText
+            android:id="@+id/passcode_createPassCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="numberPassword"
             android:ems="10"
+            android:hint="@string/create_passcode"
+            android:inputType="numberPassword"
+            android:layout_marginBottom="@dimen/fab_small_margin"
+            android:textColorHint="@color/DarkGreen"
+            android:textColor="@color/SteelBlue"/>
+
+        <EditText
             android:id="@+id/passcode__re_createPassCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
             android:hint="@string/reenter_passcode"
-            android:textColorHint="@android:color/holo_green_dark" />
+            android:inputType="numberPassword"
+            android:layout_marginBottom="@dimen/fab_small_margin"
+            android:textColorHint="@color/DarkGreen"
+            android:textColor="@color/SteelBlue"/>
 
 
         <Button
+            android:id="@+id/passcode_enterPassCode_createBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/create_passcode"
-            android:id="@+id/passcode_enterPassCode_createBtn"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:text="@string/create_passcode" />
     </LinearLayout>
 </RelativeLayout>

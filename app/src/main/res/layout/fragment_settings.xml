@@ -87,7 +87,7 @@
         android:layout_above="@+id/save_settings_btn"
         android:layout_marginTop="@dimen/fab_tiny_margin"
         android:gravity="start"
-        android:background="#fffafa"
+        android:background="@drawable/edit_text_background"
         android:hint="@string/type_message_to_send"
         android:textColorHint="@color/DarkGreen"
         android:textColor="@color/DarkGreen"

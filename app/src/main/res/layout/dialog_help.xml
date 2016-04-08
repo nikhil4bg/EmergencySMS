@@ -2,10 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/fab_large_margin"
-    android:paddingLeft="@dimen/fab_med_margin"
-    android:paddingRight="@dimen/fab_med_margin"
-    android:paddingTop="@dimen/fab_large_margin">
+    android:padding="@dimen/fab_small_margin">
 
     <Button
         android:id="@+id/help_ok_btn"
@@ -13,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/fab_med_margin"
+        android:layout_margin="@dimen/fab_med_margin"
         android:text="@android:string/ok" />
 
     <ScrollView
