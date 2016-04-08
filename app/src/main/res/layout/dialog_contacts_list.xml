@@ -12,9 +12,19 @@
         android:layout_margin="@dimen/fab_med_margin"
         android:hint="@android:string/search_go"/>
 
+    <Button
+        android:id="@+id/contacts_cancel_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/fab_med_margin"
+        android:text="@android:string/cancel" />
+
     <ListView
         android:id="@+id/contacts_listview"
         android:layout_below="@+id/contacts_search_editText"
+        android:layout_above="@+id/contacts_cancel_btn"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/fab_med_margin"/>

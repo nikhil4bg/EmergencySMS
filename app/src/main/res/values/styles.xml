@@ -5,10 +5,13 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimaryDark">@color/DarkGreen</item>
         <item name="android:buttonStyle">@style/ButtonStyle</item>
+        <item name="android:dialogTheme">@style/DialogTheme</item>
     </style>
 
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
-
+        <item name="android:windowNoTitle">false</item>
+        <item name="android:buttonStyle">@style/ButtonStyle</item>
+        <item name="android:textColor">@color/DarkGreen</item>
     </style>
 
     <style name="ButtonStyle" parent="Widget.AppCompat.Button">
@@ -19,6 +22,11 @@
         <item name="android:textColor">@drawable/text_selector</item>
         <item name="android:background">@drawable/button_selector</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="DialogTitleText" parent="TextAppearance.AppCompat.Large">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@color/DarkGreen</item>
     </style>
 
     <style name="TextLarge" parent="TextAppearance.AppCompat.Large">

@@ -6,25 +6,24 @@
     android:padding="@dimen/fab_large_margin">
 
     <TextView
+        style="@style/TextMed"
         android:id="@+id/send_msm_to_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/fab_large_margin"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
-        android:textColor="@android:color/darker_gray"
-        android:hint="@string/send_message_to"/>
+        android:layout_marginTop="@dimen/fab_med_margin"
+        android:text="@string/send_message_to"/>
 
     <TextView
+        style="@style/TextLarge"
         android:id="@+id/contect_name_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/send_msm_to_text"
         android:layout_marginTop="@dimen/fab_tiny_margin"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        android:textColor="@android:color/black"
+        android:textColorHint="@color/DarkGreen"
         android:hint="@string/choose_contact"/>
 
     <Button
@@ -43,25 +42,29 @@
         android:visibility="gone"
         android:layout_below="@+id/choose_contact_settings_btn"
         android:layout_marginTop="@dimen/fab_med_margin"
-        android:buttonTint="@android:color/darker_gray"
+        android:buttonTint="@color/SteelBlue"
         android:text="@string/include_your_location" />
 
     <CheckBox
         android:id="@+id/start_service_checkBox"
+        style="@style/TextMed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/include_location_checkBox"
         android:layout_marginTop="@dimen/fab_small_margin"
-        android:buttonTint="@android:color/darker_gray"
+        android:buttonTint="@color/DarkGreen"
+        android:textColor="@color/DarkGreen"
         android:text="@string/start_using_the_service" />
 
     <TextView
         android:id="@+id/type_sms_textview"
+        style="@style/TextMed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/start_service_checkBox"
         android:layout_marginTop="@dimen/fab_med_margin"
+
         android:text="@string/type_message_to_send"/>
 
     <Button
@@ -75,6 +78,7 @@
 
     <EditText
         android:id="@+id/enter_message_editText"
+        style="@style/TextMed"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
@@ -85,6 +89,8 @@
         android:gravity="start"
         android:background="#fffafa"
         android:hint="@string/type_message_to_send"
+        android:textColorHint="@color/DarkGreen"
+        android:textColor="@color/DarkGreen"
         android:inputType="textMultiLine" />
 
 

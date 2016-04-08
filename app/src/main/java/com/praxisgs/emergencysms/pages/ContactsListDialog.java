@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -80,6 +81,14 @@ public class ContactsListDialog extends BaseDialogFragment<ContactsListPresenter
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+        Button cancelBtn = (Button) view.findViewById(R.id.contacts_cancel_btn);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
             }
         });
     }
