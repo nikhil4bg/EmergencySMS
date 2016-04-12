@@ -3,10 +3,12 @@ package com.praxisgs.emergencysms.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
 
 import com.praxisgs.emergencysms.model.SettingModel;
+import com.praxisgs.emergencysms.services.EmergencySMSIntentService;
 
 public class EmergencySMSReceiver extends BroadcastReceiver {
     private static int mCountPowerButtonClick = 0;
@@ -56,8 +58,11 @@ public class EmergencySMSReceiver extends BroadcastReceiver {
             mCountPowerButtonClick = 0;
             mPreviousTimeStamp = 0;
 
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(mSettings.getContactModels().getMobileNumber(), null, mSettings.getMessage(), null, null);
+            Intent i = new Intent(context, EmergencySMSIntentService.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("mobile_number", mSettings.getContactModels().getMobileNumber());
+            bundle.putString("message",mSettings.getMessage());
+            context.startService(i);
         }
         Log.e("EmergencySMSReceiver", "@@@@@@@@@@@@ mCountPowerButtonClick After: " + mCountPowerButtonClick);
     }

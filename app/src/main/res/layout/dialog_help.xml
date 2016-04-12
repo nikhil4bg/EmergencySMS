@@ -28,6 +28,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/fab_tiny_margin"
+                android:text="@string/how_to_use" />
+
+            <TextView
+                style="@style/TextMed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/fab_med_margin"
+                android:text="@string/how_to_use_details" />
+
+            <TextView
+                style="@style/TextLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/fab_tiny_margin"
                 android:text="@string/choose_contact" />
 
             <TextView

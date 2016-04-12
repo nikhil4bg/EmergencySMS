@@ -44,5 +44,7 @@
     <string name="new_old_passcode_same_error">Please enter different New Passcode.</string>
     <string name="new_passcode_missmatch_error">New Passcode do not match.</string>
     <string name="old_passcode_missmatch_error">Old Passcode is not correct.</string>
+    <string name="how_to_use">How to use</string>
+    <string name="how_to_use_details">Choose a contact from contacts, enable the service, add a message and save.\n\nOnce you have saved the information and closed the application, you can just press the power button 3 times quickly in succession to send message to selected contact.</string>
 
 </resources>

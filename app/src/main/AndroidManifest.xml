@@ -33,13 +33,17 @@
             android:name=".receivers.EmergencySMSReceiver"
             android:enabled="true"
             android:exported="false">
-            <action android:name="android.intent.action.SCREEN_OFF"/>
-            <action android:name="android.intent.action.SCREEN_ON"/>
+            <action android:name="android.intent.action.SCREEN_OFF" />
+            <action android:name="android.intent.action.SCREEN_ON" />
         </receiver>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="2087e8d80ede0d57be9b5374d84c7b397baa7c48" />
-    </application>
 
+        <service
+            android:name=".services.EmergencySMSIntentService"
+            android:exported="false"></service>
+    </application>
 
 </manifest>
