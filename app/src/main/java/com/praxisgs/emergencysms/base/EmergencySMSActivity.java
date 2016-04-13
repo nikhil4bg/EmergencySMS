@@ -137,7 +137,7 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
     }
 
     /**
-     * Start Emergency service
+     * Stop Emergency service
      */
     @Override
     public void stopEmergencySMSService() {
