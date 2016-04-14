@@ -59,9 +59,8 @@ public class EmergencySMSReceiver extends BroadcastReceiver {
             mPreviousTimeStamp = 0;
 
             Intent i = new Intent(context, EmergencySMSIntentService.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("mobile_number", mSettings.getContactModels().getMobileNumber());
-            bundle.putString("message",mSettings.getMessage());
+            i.putExtra("mobile_number", mSettings.getContactModels().getMobileNumber());
+            i.putExtra("message",mSettings.getMessage());
             context.startService(i);
         }
         Log.e("EmergencySMSReceiver", "@@@@@@@@@@@@ mCountPowerButtonClick After: " + mCountPowerButtonClick);

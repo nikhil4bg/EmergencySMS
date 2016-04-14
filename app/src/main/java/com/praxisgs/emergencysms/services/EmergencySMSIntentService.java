@@ -20,13 +20,10 @@ public class EmergencySMSIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
-            Bundle bundle = intent.getExtras();
-            if(bundle!=null){
-                String mobileNumber = bundle.getString("mobile_number");
-                String message = bundle.getString("message");
+                String mobileNumber = intent.getStringExtra("mobile_number");
+                String message = intent.getStringExtra("message");
                 SmsManager smsManager = SmsManager.getDefault();
                 smsManager.sendTextMessage(mobileNumber, null, message, null, null);
-            }
         }
     }
 

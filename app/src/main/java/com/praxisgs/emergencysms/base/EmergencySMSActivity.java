@@ -197,7 +197,7 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
                         public void run() {
                             PermissionEvents.EventReadContactsPermissionStatusAfterRequest resultEvent = new PermissionEvents.EventReadContactsPermissionStatusAfterRequest(false);
                             EmergencySMSEventBus.post(resultEvent);
-                            requestedForPermission = false;
+//                            requestedForPermission = false;
                         }
                     }, 200);
                 }
@@ -218,7 +218,7 @@ public class EmergencySMSActivity extends BaseActivity implements AppNavigationC
                         public void run() {
                             PermissionEvents.EventSendSMSPermissionStatusAfterRequest resultEvent = new PermissionEvents.EventSendSMSPermissionStatusAfterRequest(false);
                             EmergencySMSEventBus.post(resultEvent);
-                            requestedForPermission = false;
+//                            requestedForPermission = false;
                         }
                     }, 200);
                 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MayDay SMS</string>
+    <string name="app_name">MiD - Message in Distress</string>
     <string name="enter_passcode">Enter Passcode</string>
     <string name="reenter_passcode">Re-enter Passcode</string>
     <string name="create_passcode">Create new Passcode</string>
